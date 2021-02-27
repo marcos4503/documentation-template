@@ -1,0 +1,205 @@
+<html>
+    <!-- #region MINI DOCUMENTATION ABOUT TAGS OF THIS TEMPLATE -->
+    <!--
+    TOOLS TAGS AND HOW TO USE IN THIS DOCUMENTATION
+    
+    TOPIC - <doc.topic topicid="id">text/html code</doc.topic>                                         (all the code inside here will be considered and marked as a whole topic)
+    TOPICTITLE - <doc.topictitle>text</doc.topictitle>                                                 (show a text with a formatation of topic title)
+    TOPICSUBTITLE - <doc.topicsubtitle>text</doc.topicsubtitle>                                        (show a text with a formatation of subtopic title)
+    WARNING - <doc.warn>text/html code</doc.warn>                                                      (show a text or html tag inside a red block)
+    INFO - <doc.info>text/html code</doc.info>                                                         (show a text or html tag inside a blue block)
+    ACHIEV - <doc.achiev>text/html code</doc.achiev>                                                   (show a text or html tag inside a green block)
+    DETACH - <doc.detach>text</doc.detach>                                                             (show a text, or world inside a highlight block that is responsive and can be inserted between others normal worlds)
+    IMAGE - <doc.image src="pathToImage">text comment</doc.image>                                      (show a image with controls of zoom, etc. The size of image is defined automatically)
+    VIDEO - <doc.video src="pathToVideo">video comment</doc.video>                                     (show a video. The size of video is defined automatically)
+    CODE - <doc.code language="*"><code>                                                               (show a code formated for csharp. the code will ignore any html tag inside of <code> tag)
+                code text                                                                              <- You can choose "language" between [generic,go,java,json,lua,python,r,ruby,scheme,shell,sql,c,d,csharp,html,javascript,css,php]
+           </code></doc.code> 
+    TABLE & TABLECW & TABLEC & TABLER - <doc.table>                                                    (Show a easy made table formatted automatically, use => to pass to next column)
+                                            <doc.tablecw>10%=>10%=>auto</doc.tablecw>                  <- This is settings for the width of each column
+                                            <doc.tablec>Column1=>Column2=>Column3</doc.tablec>         <- This is the name of each column
+                                            <doc.tabler>RowItem1=>RowItem2=>RowItem3</doc.tabler>      <- This is a row of the table
+                                            <doc.tabler>RowItem1=>RowItem2=>RowItem3</doc.tabler>      <- This is another row of the table
+                                        </doc.table>
+    LIST & LISTR <doc.list isnumeric="false">                                                          (Show a easy made list formatted automatically)
+                    <doc.listr>RowItem1</doc.listr>                                                    <- This is a row of list
+                    <doc.listr>RowItem2</doc.listr>
+                 </doc.list>
+
+    WARNING: DO NOT USE TAGS IN UPPER CASE!
+    -->
+    <!-- #endregion -->
+
+    <head>
+        <!-- #region HEAD -->
+        <title>Documentation Template</title>
+        <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
+        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/style.css">
+        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/rainbow-dreamweaver.css">
+        <script src="DocumentationFiles/js/rainbow-custom.min.js"></script>
+        <script src="DocumentationFiles/js/code.js"></script>
+        <meta charset="UTF-8">
+        <!-- #endregion -->
+    </head>
+
+    <body>
+        <!-- #region TOPBAR -->
+        <div class="topBar">
+            <div class="topBarLogoIcon"><img src="DocumentationFiles/logo/logo.png" height="100%" /></div>
+            <div class="topBarLogoTextContainer">
+                <div class="topBarLogoText">Documentation Template</div>
+            </div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/github.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/youtube.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/discord.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/generic.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/facebook.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/instagram.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/whatsapp.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/rss.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/donate.png" /></a></div>
+            <div class="topBarItemContainer"><a href="" target="_blank" title="Click here to."><img src="DocumentationFiles/topbar/unity.png" /></a></div>
+            <div class="topBarItemDivider"></div>
+            <div class="topBarSupportTextContainer">
+                <div class="topBarSupportText">For support and contact</div>
+                <div class="topBarSupportTextEmail">email@domain.name</div>
+            </div>
+        </div>
+        <div class="readProgressContainer">
+            <div class="readProgressBar" id="readProgressBar"></div>
+        </div>
+        <div class="fullscreenImageBackground" id="fullScreenImageViewerBg" onclick="CloseImageFullScreenViewer();"></div>
+        <div class="fullscreenImagePopupContent" id="fullScreenImageViewerPop">
+            <div class="fullscreenImagePopup">
+                <div class="fullscreenImagePopupClose"><img src="DocumentationFiles/tools/close.png" id="fullScreenImageClose" title="Click here to close Viewer." onclick="CloseImageFullScreenViewer();" /></div>
+                <img src="" id="fullScreenImageViewerImg" />
+            </div>
+        </div>
+        <!-- #endregion -->
+        <!-- SUBBODY -->
+        <div class="subBody">
+            <!-- SUMMARY -->
+            <div class="subBodySummary" id="summary">
+                <div class="subBodySummaryTitle">Summary of Documentation</div>
+                <ul>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="1">What is the Documentation Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="2">Using the Documentation Template</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="3">Prerequisites for using Documentation Template</a></li>
+                    <li>Minimap Camera</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="4">How this component works</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5">Settings and Options</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="6">API</a></li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="subBodyDivider" id="divider"></div>
+            <!-- DOCUMENTATION CONTENT -->
+            <div class="subBodyContent" id="content">
+                Documentation Start
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+                <doc.topic topicid="1">
+                    <doc.topictitle>Topic</doc.topictitle>
+
+                    dsffdewfrkfbreujrbeirebiug ergbrego urebg eroub reuiogebr ugbr euog ebruogreb uoer greuiob gurioeb reuoigb reiuob greuiob reug breuiogb reugb
+                </doc.topic>
+
+                <doc.topicsubtitle>Subtopic</doc.topicsubtitle>
+
+                <doc.warn>This is <doc.detach>detach</doc.detach> a warning fdgfkjdsbfwe fewur fiuweb feirub frieubf eriub freub fiuerb fiureb freiubf reiufb reiufb reiufbre uifbre iubr feiubfre iufbre uifbre ureb uirefb
+                    ufreb ureb feru ferui fbreui freb freibf reiubf reiuf iure freiu freiu freiu freiub freifb r</doc.warn>
+
+                <doc.info>This is a info</doc.info>
+
+                <doc.achiev>This is a achievement</doc.achiev>
+
+                dsdsd <doc.detach>detach</doc.detach> efouweouier foweuibf owuebf eowuifb ewof bweouf ewufbewf webf oiuewufew foeuiw bfuewo feowuf ewofb ewouf ewouf ewouf ebwuof weufoew ofiuew fuioew bfuiew bfuiewb ufewb
+                fuiewb fiuweb fuiewb feuwib fweibf weiufb weiufb iuwebf eiwu fewui fewiu fewifwe iuofwweb fuewiob
+
+                <doc.video src="DocumentationFiles/videos/video.mp4"></doc.video>
+
+                <doc.image src="DocumentationFiles/images/test.jpg"></doc.image>
+
+                <doc.image src="DocumentationFiles/tools/close.png"></doc.image>
+
+                world0 <doc.code language="csharp"><code>
+//teste
+/* teste */
+//<!-- teste -->
+
+using teste;
+<test>
+<test>
+var teste = "dsdfs";
+</code></doc.code>
+                world1
+
+                <doc.table>
+                    <doc.tablecw>20%=>auto</doc.tablecw>
+                    <doc.tablec>Column1=>Column2</doc.tablec>
+                    <doc.tabler>RowItem1 <doc.detach>teste</doc.detach>=>RowItem2</doc.tabler>
+                    <doc.tabler>RowItem1=>RowItem2</doc.tabler>
+                </doc.table>
+
+                <br><br><br><br><br><br>
+
+                <doc.table>
+                    <doc.tablecw>10%=>auto</doc.tablecw>
+                    <doc.tablec>Column1=>Column2</doc.tablec>
+                    <doc.tabler>RowItem1=>RowItem2</doc.tabler>
+                    <doc.tabler>RowItem1=>RowItem2</doc.tabler>
+                </doc.table>
+
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei ds fsdf fdewgkjerbn ds erub grueiogb erugbr egbre uoigreb ougr
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei
+                <doc.list isnumeric="false">
+                    <doc.listr>RowItem1</doc.listr>
+                    <doc.listr>RowItem2</doc.listr>
+                    <doc.list isnumeric="true">
+                        <doc.listr>RowItem1</doc.listr>
+                        <doc.listr>RowItem2</doc.listr>
+                    </doc.list>
+                </doc.list>
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei
+                efwfewfewfewfewfwefwe ewfewf ewfewf wef wefwe fwe fewfewkhfewb khjfewb fihewb fihewb fihweb fihweb hiewbf ihweb fiweb wefb eiwb fwei
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+                Documentation Middle
+                <div id="3">
+                </div>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                Documentation End
+            </div>
+        </div>
+        <div class="endOfBodyContentPoint" id="contentEndPoint"></div>
+        <!-- #region FOOTER -->
+        <div class="footer">
+            <center>
+                <small>
+                    <b>On-line links</b>
+                    <br>
+                    <br>
+                    <a href="https://www.youtube.com/channel/UCqAgiYBwAWajjFUqyJ6_xyw?view_as=subscriber" target="_blank">Youtube Channel</a>
+                    •
+                    <a href="https://assetstore.unity.com/publishers/40306" target="_blank">MT Assets On Asset Store</a>
+                    •
+                    <a href="https://windsoft.xyz/ForBrowsers/MTAssets/Home.php" target="_blank">Web Site</a>
+                </small>
+            </center>
+        </div>
+        <div class="footerSpacement"></div>
+        <div class="gotoTopButton" id="gotoTopButtonItem" onclick="GoToToButton();"><img src="DocumentationFiles/tools/up.png" title="Click here to go to top of page." /></div>
+        <!-- #endregion -->
+    </body>
+
+</html>
