@@ -15,4 +15,4 @@ If you liked this Documentation Template and found it useful for your projects, 
     ![alt text](https://www.paypal.com/en_BR/i/scr/pixel.gif)
 </a>
 
-[![name](link to image on GH)](https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2)
+[![name](Documentation-Template/DocumentationFiles/images/paypal-donate.png)](https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2)
