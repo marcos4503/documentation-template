@@ -11,8 +11,6 @@ When you open the "Documentation.html" file with your browser, you will be able 
 
 If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! Thanks! 😀
 
-<a href="https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2" target="_blank">
-    ![alt text](https://www.paypal.com/en_BR/i/scr/pixel.gif)
-</a>
-
-[![name](Documentation-Template/DocumentationFiles/images/paypal-donate.png)](https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2)
+<center>
+    [![Donate](Documentation-Template/DocumentationFiles/images/paypal-donate.png)](https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2)
+</center>
