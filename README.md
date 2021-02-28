@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="Documentation-Template/DocumentationFiles/images/screenshot1.png" />
+    <img src="Documentation-Template/DocumentationFiles/images/screenshot.png" />
 </p>
 
 # To use this template
