@@ -23,7 +23,7 @@ If you liked this Documentation Template and found it useful for your projects, 
 <br>
 
 <p align="center">
-    <a href="https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2">
+    <a href="https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2" target="_blank">
         <img src="Documentation-Template/DocumentationFiles/images/paypal-donate.png" alt="Donate" />
     </a>
 </p>
