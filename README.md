@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="Documentation-Template/DocumentationFiles/images/screenshot1.png" />
+</p>
+
 # To use this template
 
 To use this Documentation Template just clone this repository (like ZIP for example), then go to the "Documentation-Template" folder and edit the "Documentation.html" file.
