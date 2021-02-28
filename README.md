@@ -1,5 +1,6 @@
 <p align="center">
     <img src="Documentation-Template/DocumentationFiles/images/screenshot.png" />
+    Clone this repository and open the file "Documentation.html" (present in "Documentation-Template") to see this Template working.
 </p>
 
 # To use this template
