@@ -11,6 +11,10 @@ To use this Documentation Template just clone this repository (like ZIP for exam
 
 When you open the "Documentation.html" file with your browser, you will be able to see the Template working and you will automatically be able to read everything you need to know to edit and use this Template to its full potential.
 
+# What is the magic behind this Template?
+
+This template is compatible with Mobile devices and Desktops, has a professional design and great basic and advanced features for creating Documentations. This template can read some new tags that only work on it (like <b>&lt;doc.table&gt;</b>, <b>&lt;doc.code&gt;</b>, <b>&lt;doc.detach&gt;</b> and many others) and so you can create structures in your documentation, without worrying about lines and more lines of HTML code that eventually become a headache.
+
 # Support projects like this
 
 If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! Thanks! 😀
