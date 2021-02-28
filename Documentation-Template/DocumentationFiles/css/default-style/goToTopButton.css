@@ -1,0 +1,21 @@
+.gotoTopButton{
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
+    border-radius: 32px;
+    cursor: pointer;
+    transition: all 250ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+.gotoTopButton img{
+    margin-top: 1px;
+    margin-right: 1px;
+    width: 80%;
+    height: 80%;
+}

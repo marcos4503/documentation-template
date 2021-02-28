@@ -1,0 +1,200 @@
+<html>
+
+    <head>
+        <!-- #region HEAD -->
+        <title>Documentation Template</title>
+        <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
+        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/style.css">
+        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/rainbow-dreamweaver.css">
+        <script src="DocumentationFiles/js/rainbow-custom.min.js"></script>
+        <script src="DocumentationFiles/js/code.js"></script>
+        <meta charset="UTF-8">
+        <!-- #endregion -->
+    </head>
+
+    <body>
+        <!-- #region TOPBAR -->
+        <div class="topBar">
+            <div class="topBarLogoIcon"><img src="DocumentationFiles/logo/logo.png" height="100%" /></div>
+            <div class="topBarLogoTextContainer">
+                <div class="topBarLogoText">Documentation Template</div>
+            </div>
+            <div class="topBarItemContainer"><a href="https://www.paypal.com/donate?hosted_button_id=MVDJY3AXLL8T2" target="_blank" title="GitHub Repository"><img src="DocumentationFiles/topbar/donate.png" /></a></div>
+            <div class="topBarItemContainer"><a href="https://github.com/marcos4503/documentation-template" target="_blank" title="GitHub Repository"><img src="DocumentationFiles/topbar/github.png" /></a></div>
+            <div class="topBarItemDivider"></div>
+            <div class="topBarSupportTextContainer">
+                <div class="topBarSupportText">For support and contact</div>
+                <div class="topBarSupportTextEmail">email@domain.name</div>
+            </div>
+        </div>
+        <div class="readProgressContainer">
+            <div class="readProgressBar" id="readProgressBar"></div>
+        </div>
+        <div class="fullscreenImageBackground" id="fullScreenImageViewerBg" onclick="CloseImageFullScreenViewer();"></div>
+        <div class="fullscreenImagePopupContent" id="fullScreenImageViewerPop">
+            <div class="fullscreenImagePopup">
+                <div class="fullscreenImagePopupClose"><img src="DocumentationFiles/tools/close.png" id="fullScreenImageClose" title="Click here to close Viewer." onclick="CloseImageFullScreenViewer();" /></div>
+                <img src="" id="fullScreenImageViewerImg" />
+            </div>
+        </div>
+        <div class="fullscreenLoadingContent" id="fullscreenLoadingBlock">
+            <div class="fullscreenLoadingBg">
+                <div class="fullscreenLoading">
+                    <div><img src="DocumentationFiles/tools/loading.png" /></div>
+                    <div></div>
+                    <div>Loading Doc...</div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
+        <!-- SUBBODY -->
+        <div class="subBody">
+            <!-- SUMMARY -->
+            <div class="subBodySummary" id="summary" onscroll="OnScrollSummary(this);" onmouseover="isMouseOverTheSummary(this, true);" onmouseout="isMouseOverTheSummary(this, false);">
+                <div class="subBodySummaryTitle">Summary of Documentation</div>
+                <!-- -------------------------------------------------------------------------- START OF SUMMARY CONTENT -------------------------------------------------------------------------- -->
+                <ul>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="1">What is this Documentation Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="2">Using the Documentation Template</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="3">Prerequisites for using Documentation Template</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="4">Creating multi-page documentation with this Template</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5">Creating and demarcating topics in your documentation</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="6">Linking a topic created in your documentation, to a summary item</a></li>
+                    <li class="summarySubItem">Topic Titles</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="7">Displaying a Title within a Topic</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8">Displaying a Subtitle in a Topic</a></li>
+                    </ul>
+                    <li class="summarySubItem">Highlighted Messages</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="9">Displaying a warning message</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="10">Displaying an information message</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="11">Displaying an achievement message</a></li>
+                    </ul>
+                    <li class="summarySubItem">Highlighted Words</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="12">How to highlight a word in the middle of a text</a></li>
+                    </ul>
+                    <li class="summarySubItem">Responsive Images</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="13">Displaying a responsive image with zoom and caption controls</a></li>
+                    </ul>
+                    <li class="summarySubItem">Responsive Videos</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="14">Displaying a responsive video</a></li>
+                    </ul>
+                    <li class="summarySubItem">Formatted Codes</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="15">Displaying code formatted in some language</a></li>
+                    </ul>
+                    <li class="summarySubItem">Easy & Compact Tables</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="16">Displaying a formatted and compact code table</a></li>
+                    </ul>
+                    <li class="summarySubItem">Easy Lists</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="17">Displaying an formatted list</a></li>
+                    </ul>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="18">Third party libraries used in this template</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="19">Changing the color scheme of Formatted Codes</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="20">Information about the Documentation Template and GitHub</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="21">Would you like to support the maintenance of the Template?</a></li>
+                </ul>
+                <!-- -------------------------------------------------------------------------- END OF SUMMARY CONTENT -------------------------------------------------------------------------- -->
+            </div>
+            <div class="subBodyDivider" id="divider">
+                <div id="summaryScrollIndicador" class="summaryScrollDownIndicator"><img src="DocumentationFiles/tools/scroll-down.png" /></div>
+            </div>
+
+            <!-- DOCUMENTATION CONTENT -->
+            <div class="subBodyContent" id="content">
+                <!-- -------------------------------------------------------------------------- START OF DOCUMENTATION CONTENT -------------------------------------------------------------------------- -->
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+                <!-- --------------------------------------------------------------------------- END OF DOCUMENTATION CONTENT --------------------------------------------------------------------------- -->
+            </div>
+        </div>
+
+        <div class="endOfBodyContentPoint" id="contentEndPoint"></div>
+        <!-- #region FOOTER -->
+        <div class="footer">
+            <center>
+                <small>
+                    <b>Developed with ❤ by Marcos Tomaz</b>
+                    <br>
+                    <div class="processingTimeResult">
+                        Page processed in <div id="processingTime">0</div> ms
+                    </div>
+                    <br>
+                    <a href="https://www.paypal.com/donate/?hosted_button_id=MVDJY3AXLL8T2" target="_blank">Donate</a>
+                    •
+                    <a href="https://github.com/marcos4503/documentation-template" target="_blank">Fork Me On GitHub</a>
+                </small>
+            </center>
+        </div>
+        <div class="footerSpacement"></div>
+        <div class="gotoTopButton" id="gotoTopButtonItem" onclick="GoToToButton();"><img src="DocumentationFiles/tools/up.png" title="Click here to go to top of page." /></div>
+        <!-- #endregion -->
+    </body>
+
+</html>

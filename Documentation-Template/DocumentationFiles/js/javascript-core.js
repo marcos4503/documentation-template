@@ -25,7 +25,7 @@ window.onload = function () {
     //Hide the loading screen
     setTimeout(function () {
         document.getElementById("fullscreenLoadingBlock").setAttribute("style", "opacity: 0.0; pointer-events: none;");
-        document.body.style.overflowY = "scroll";
+        ScrollSummaryWithWindow();
     }, 500);
 
     //Get #id of URL (if have) and go to topic automatically
@@ -70,8 +70,8 @@ function ScrollSummaryWithWindow() {
     if (isElementCurrentlyVisibleInScreen(endOfContentPointDiv) == false) {
         dividerDiv.style.marginTop = "0px";
         summaryDiv.style.marginTop = "0px";
-        dividerDiv.style.top = topbarHeightSize + "px";
-        summaryDiv.style.top = topbarHeightSize + "px";
+        dividerDiv.style.top = (((document.body.clientHeight - dividerHeight) + (topbarHeightSize * 0.65)) * 0.5) + "px";
+        summaryDiv.style.top = (((document.body.clientHeight - dividerHeight) + (topbarHeightSize * 0.65)) * 0.5) + "px";
     }
 
     //If is reached in bottom of page, put the divider and summary on max bottom
@@ -213,8 +213,6 @@ function OpenImageInFullScreen(src) {
     fullScreenViewerImg.style.pointerEvents = "none";
     fullScreenViewerImg.setAttribute("src", src);
     fullScreenViewerClose.style.pointerEvents = "all";
-
-    document.body.style.overflow = "hidden";
 }
 function CloseImageFullScreenViewer() {
     //Get all components
@@ -229,8 +227,6 @@ function CloseImageFullScreenViewer() {
     fullScreenViewerPop.style.opacity = "0.0";
     fullScreenViewerImg.style.pointerEvents = "none";
     fullScreenViewerClose.style.pointerEvents = "none";
-
-    document.body.style.overflowY = "scroll";
 }
 
 //Function that post process all tools tags

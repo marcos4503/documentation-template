@@ -1,14 +1,15 @@
-<html>
+<html lang="en-US">
 
     <head>
         <!-- #region HEAD -->
         <title>Documentation Template</title>
         <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
         <link rel="shortcut icon" type="image/png" href="DocumentationFiles/favicon/favicon.png" />
-        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/style.css">
         <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/rainbow-dreamweaver.css">
+        <link rel="stylesheet" type="text/css" href="DocumentationFiles/css/all-css-content.css">
         <script src="DocumentationFiles/js/rainbow-custom.min.js"></script>
-        <script src="DocumentationFiles/js/code.js"></script>
+        <script src="DocumentationFiles/js/javascript-core.js"></script>
+        <meta name="viewport" content="width=device-width">
         <meta charset="UTF-8">
         <!-- #endregion -->
     </head>
@@ -127,7 +128,7 @@
                     <doc.topictitle>Using the Documentation Template</doc.topictitle>
                     To use this Documentation Template is very simple. You can download it through the official GitHub and then, just edit the document called "Documentation.html". To edit it is really very simple, you just need to edit the content that is
                     within the commented area with <doc.detach>START OF SUMMARY CONTENT</doc.detach>, <doc.detach>END OF SUMMARY CONTENT</doc.detach> and <doc.detach>START OF DOCUMENTATION CONTENT</doc.detach>, <doc.detach>END OF DOCUMENTATION CONTENT
-                    </doc.detach> as the example below shows!
+                    </doc.detach> as the example below shows! This template is also responsive and offers support for mobile devices.
                     <doc.code language="html"><code>
 ...HTML code...
 <!-- ---------------- START OF SUMMARY CONTENT ---------------- -->
@@ -212,7 +213,9 @@ EDIT HERE TOO
                     More two times...
                     <doc.topictitle>This is a other Title for a Topic!</doc.topictitle>
                     <doc.topictitle>This is a other other Title for a other Topic!</doc.topictitle>
-                    <doc.info>Note that when you move the cursor over a Title, a "#" symbol is revealed, so that you can get a reference to that topic as a link.</doc.info>
+                    <doc.info>Note that when you move the cursor over a Title, a "#" symbol is revealed, so that you can get a reference to that topic as a link. Note that this will only work if your <doc.detach>doc.topictitle</doc.detach> is inside
+                        <doc.detach>doc.topic</doc.detach> tag.
+                    </doc.info>
                     <br>
                     <br>
                 </doc.topic>
