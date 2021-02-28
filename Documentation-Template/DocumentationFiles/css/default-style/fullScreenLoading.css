@@ -3,7 +3,6 @@
     height: 100%;
     position: fixed;
     pointer-events: all;
-    cursor: wait;
     opacity: 1.0;
     z-index: 1;
     transition: 200ms;
@@ -21,7 +20,7 @@
     line-height: 24px;
     font-weight: bolder;
     padding-left: 8px;
-    padding-right: 8px;
+    padding-right: 8px;   
 }
 .fullscreenLoading{
     display: grid;
@@ -30,6 +29,7 @@
     border-radius: 4px;
     padding: 8px;
     box-shadow: 0px 2px 16px -2px rgba(0, 0, 0, 0.165);
+    user-select: none;
 }
 .fullscreenLoading img{
     height: 24px;
@@ -38,6 +38,7 @@
     animation-duration: 800ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    pointer-events: none;
 }
 @keyframes fullscreenLoading {
   100% { transform: rotateZ(360deg); }
