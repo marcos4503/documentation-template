@@ -14,7 +14,7 @@ When you open the "Documentation.html" file with your browser, you will be able 
 
 # What is the magic behind this Template?
 
-This template is compatible with Mobile devices and Desktops, has a professional design and great basic and advanced features for creating Documentations. This template can read some new tags that only work on it (like '<b>&lt;doc.table&gt;</b>', '<b>&lt;doc.code&gt;</b>', '<b>&lt;doc.detach&gt;</b>' and many others) and so you can create structures (such as code boxes with syntax highlighting, responsive images, word highlights, etc.) in your documentation, without worrying about lines and more lines of HTML code that eventually become a headache.
+This template is compatible with Mobile devices and Desktops, has a professional design and great basic and advanced features for creating Documentations. This template can read some new tags that only work on it (like `<b>&lt;doc.table&gt;</b>`, `<b>&lt;doc.code&gt;</b>`, `<b>&lt;doc.detach&gt;</b>` and many others) and so you can create structures (such as code boxes with syntax highlighting, responsive images, word highlights, etc.) in your documentation, without worrying about lines and more lines of HTML code that eventually become a headache.
 
 # Support projects like this
 
