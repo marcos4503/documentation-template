@@ -13,6 +13,7 @@ body {
     color: #303030;
     padding: 0;
     margin: 0 auto !important;
+    overflow-y: scroll;
 }
   
 ::-webkit-scrollbar {
@@ -30,19 +31,19 @@ body {
   
 a {
     text-decoration: none;
-    color: #374f77;
+    color: #0046c0;
     cursor: pointer;
 }
 a:link {
     text-decoration: none;
-    color: #374f77;
+    color: #0046c0;
 }
 a:hover {
-    color: #374f77;
+    color: #0046c0;
     text-decoration: underline dotted #3a505b;
 }
 a:visited {
-    color: #374f77;
+    color: #0046c0;
     text-decoration: none;
 }
 
@@ -181,6 +182,7 @@ li {
     transition: all 250ms;
     opacity: 0.0;
     pointer-events: none;
+    cursor: zoom-out;
 }
 .fullscreenImagePopupContent{
     z-index: 10;
@@ -201,6 +203,7 @@ li {
 }
 .fullscreenImagePopup img{
     height: 92%;   
+    max-width: auto;
     border-radius: 4px;
     pointer-events: none;
 }
@@ -229,27 +232,61 @@ li {
 }
 .subBodySummary{
     height: 100px;
-    overflow-y: auto;
-    overflow-x: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
     transition: all 0ms;
+    padding-right: 4px;
+    position: sticky;
+    top: 0;
+}
+.subBodySummary:hover{
+    overflow-y: scroll;
+    overflow-x: auto;
+    padding-right: 0px;
+}
+@-moz-document url-prefix() {
+    .subBodySummary{
+        padding-right: 17px;
+    }
+    .subBodySummary:hover{
+        padding-right: 0px;
+    }
+}
+.subBodySummary:nth-child(2){
+    margin-bottom: 100px;
 }
 .subBodySummary::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
 }
 .subBodySummary::-webkit-scrollbar-track {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(206, 206, 206, 0.75), rgba(0, 0, 0, 0.0));
+    background-color: rgba(0, 0, 0, 0.048);
+    border-radius: 4px;
 }
 .subBodySummary::-webkit-scrollbar-thumb {
-    background: #808080;
+    background: #0000002f;
+    border-radius: 4px;
 }
 .subBodySummary::-webkit-scrollbar-thumb:hover {
-    background: #808080;
+    background: #0000002f;
+    border-radius: 4px;
+} 
+.subBodySummary a{
+    text-decoration: none;
+    color: #374f77;
+    cursor: pointer;
+}
+.subBodySummary a:hover{
+    text-decoration: underline dotted #3a505b;
 }
 .subBodySummaryTitle{
     font-weight: bolder;
     font-size: 16px;
     text-align: center;
     height: 36px;
+    margin-top: 12px;
+    margin-bottom: -4px;
 }
 .subBodySummary ul{
     padding-left: 18px;
@@ -257,14 +294,50 @@ li {
 }
 .subBodySummary li{
     font-size: 12px;
+    margin-right: 14px;
+    transition: all 150ms;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 .summaryItem{
     transition: all 150ms;
+}
+.summaryItemHighlighted{
+    background-color: rgba(0, 96, 138, 0.15);
+    padding-left: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 8px;
+}
+.summaryScrollDownIndicator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ececec;
+    border-radius: 24px;
+    transition: opacity 250ms;
+    pointer-events: none;
+    animation-name: summaryScrollAnimation;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+}
+.summaryScrollDownIndicator img{
+    height: 60%;
+    transition: all 0ms;
+    opacity: 0.0;
+    margin-top: 2px;
+}
+@keyframes summaryScrollAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
 }
 .subBodyDivider{
     width: 100%;
     height: 100px;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(206, 206, 206, 0.75), rgba(0, 0, 0, 0));
+    position: sticky;
+    top: 0;
 }
 .subBodyContent{
     margin-left: 16px;
@@ -317,16 +390,81 @@ li {
     height: 80%;
 }
 
+.processingTimeResult{
+    opacity: 0.5;
+}
+.processingTimeResult #processingTime{
+   display: inline;
+}
+
+.fullscreenLoadingContent{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    pointer-events: all;
+    cursor: wait;
+    opacity: 1.0;
+    z-index: 1;
+    transition: 200ms;
+}
+.fullscreenLoadingBg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 95%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    line-height: 24px;
+    font-weight: bolder;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.fullscreenLoading{
+    display: grid;
+    grid-template-columns: 24px 8px auto;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0px 2px 16px -2px rgba(0, 0, 0, 0.165);
+}
+.fullscreenLoading img{
+    height: 24px;
+    width: 24px;
+    animation-name: fullscreenLoading;
+    animation-duration: 800ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes fullscreenLoading {
+  100% { transform: rotateZ(360deg); }
+}
+
 /* style for tools tags */
 
 .toolTagTopicTitle{
-    display: block;
+    display: grid;
+    grid-template-columns: auto 32px;
     width: 100%;
     text-align: left;
     font-size: 24px;
     font-weight: bolder;
     margin-top: 18px;
     margin-bottom: 18px;
+}
+.toolTagTopicTitle a:nth-child(2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0048ff00;
+    width: 32px;
+    text-align: right;
+    transition: all 100ms;
+}
+.toolTagTopicTitle:hover a:nth-child(2){
+    color: #003a9d;
 }
 
 .toolTagTopicSubtitle{
@@ -350,7 +488,7 @@ li {
 }
 .toolTagWarnSubcontainer{
     display: grid;
-    grid-template-columns: 64px auto;
+    grid-template-columns: 32px auto;
     width: 100%;
     max-width: 640px;
     margin-left: auto;
@@ -360,13 +498,13 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 8px;
+    padding-top: 2px;
     padding-right: 8px;
-    padding-bottom: 8px;
-    margin-left: -7px;
+    padding-bottom: 2px;
+    margin-left: -1px;
 }
 .toolTagWarnIcon img{
-    width: 48px;
+    width: 24px;
 }
 .toolTagWarnContent{
     display: flex;
@@ -374,6 +512,8 @@ li {
 }
 .toolTagWarnText{
     padding-left: 4px;
+    color: #7b0000;
+    font-weight: bolder;
 }
 
 .toolTagInfoContainer{
@@ -387,7 +527,7 @@ li {
 }
 .toolTagInfoSubcontainer{
     display: grid;
-    grid-template-columns: 64px auto;
+    grid-template-columns: 32px auto;
     width: 100%;
     max-width: 640px;
     margin-left: auto;
@@ -397,13 +537,13 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 8px;
+    padding-top: 2px;
     padding-right: 8px;
-    padding-bottom: 8px;
-    margin-left: -8px;
+    padding-bottom: 2px;
+    margin-left: -2px;
 }
 .toolTagInfoIcon img{
-    width: 48px;
+    width: 24px;
 }
 .toolTagInfoContent{
     display: flex;
@@ -411,6 +551,8 @@ li {
 }
 .toolTagInfoText{
     padding-left: 4px;
+    color: #005979;
+    font-weight: bolder;
 }
 
 .toolTagAchievContainer{
@@ -424,7 +566,7 @@ li {
 }
 .toolTagAchievSubcontainer{
     display: grid;
-    grid-template-columns: 64px auto;
+    grid-template-columns: 32px auto;
     width: 100%;
     max-width: 640px;
     margin-left: auto;
@@ -434,13 +576,13 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 8px;
+    padding-top: 2px;
     padding-right: 8px;
-    padding-bottom: 8px;
-    margin-left: -8px;
+    padding-bottom: 2px;
+    margin-left: -1px;
 }
 .toolTagAchievIcon img{
-    width: 48px;
+    width: 24px;
 }
 .toolTagAchievContent{
     display: flex;
@@ -448,6 +590,8 @@ li {
 }
 .toolTagAchievText{
     padding-left: 4px;
+    color: #00490d;
+    font-weight: bolder;
 }
 
 .toolTagDetach{
@@ -455,13 +599,14 @@ li {
     background-color: rgb(239, 239, 239);
     padding-left: 2px;
     padding-right: 2px;
-    padding-bottom: 1px;
+    padding-bottom: 0px;
     border-radius: 4px;
     margin-left: 2px;
     margin-right: 2px;
     border-style: solid;
     border-width: 1px;
     border-color: rgb(209, 209, 209);
+    font-size: 11px;
 }
 
 .toolTagImageContainer{
@@ -525,6 +670,7 @@ li {
     padding-top: 6px;
     padding-bottom: 6px;
     border-radius: 4px;
+    transition: all 250ms;
 }
 .toolTagCodeContent{
     width: 100%;
@@ -534,7 +680,37 @@ li {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    cursor: text;
+    overflow-x: scroll;
+    transition: all 250ms;
+    transition-delay: 300ms;
+}
+.toolTagCodeContent:hover{
+    max-width: calc(100% - 36px);
+}
+.toolTagCodeContent::-webkit-scrollbar {
+    height: 8px;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.toolTagCodeContent::-webkit-scrollbar-track {
+    background-color: #00000000;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.toolTagCodeContent::-webkit-scrollbar-thumb {
+    background: #00000061;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.toolTagCodeContent::-webkit-scrollbar-thumb:hover {
+    background: #00000061;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    cursor: pointer;
 }
 .toolTagCodeTitle{
     font-style: italic;
@@ -542,7 +718,7 @@ li {
     font-family: Helvetica, sans-seri;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     margin-top: -6px;
-    margin-bottom: -6px;
+    margin-bottom: 6px;
 }
 .toolTagCodeComment{
     text-align: center;
@@ -562,7 +738,7 @@ li {
     margin-left: 0px;
     margin-right: 0px;
 }
-.toolTagTable tbody{
+.toolTagTable{
     font-size: 13px;
 }
 .toolTagTable td th{

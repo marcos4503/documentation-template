@@ -1,23 +1,47 @@
 //Global variables
+var isMouseOverSummary = false;
+
+//Global Cache variables
 var tablesProcesseds = 0;
 
 //Events
 window.onscroll = function () {
     FillReadProgressBar();
-    ScrollSummary();
+    ScrollSummaryWithWindow();
     EnableOrDisableGoToTopButton();
+    OnScrollSummary(document.getElementById("summary"));
 };
 window.onload = function () {
+    var startBenchmark = window.performance.now();
+
     FillReadProgressBar();
-    ScrollSummary();
+    ScrollSummaryWithWindow();
     RunPostProcessOfAllToolsTags();
     AsyncCheckForEachSummaryItemVisibility();
     document.title = document.title + " Doc";
     Rainbow.color();
+    OnScrollSummary(document.getElementById("summary"));
+
+    //Hide the loading screen
+    setTimeout(function () {
+        document.getElementById("fullscreenLoadingBlock").setAttribute("style", "opacity: 0.0; pointer-events: none;");
+        document.body.style.overflowY = "scroll";
+    }, 500);
+
+    //Get #id of URL (if have) and go to topic automatically
+    setTimeout(function () {
+        var hash = location.hash.replace(/^#/, "");
+        if (hash != "")
+            GoToDivSmoothlyCore(document.scrollingElement || document.documentElement, "scrollTop", "", window.pageYOffset, document.getElementById(hash).offsetTop - 80, 500, true);
+    }, 700);
+
+    var endBenchmark = window.performance.now();
+    document.getElementById("processingTime").innerHTML = "" + (endBenchmark - startBenchmark).toFixed(1);
 }
 window.onresize = function () {
     FillReadProgressBar();
-    ScrollSummary();
+    ScrollSummaryWithWindow();
+    OnScrollSummary(document.getElementById("summary"));
 }
 
 //Read progress code
@@ -29,15 +53,14 @@ function FillReadProgressBar() {
 }
 
 //Scroll vertically the summary div code
-function ScrollSummary() {
+function ScrollSummaryWithWindow() {
     //Do calcs to know total page height
-    var contentDiv = document.getElementById("content");
     var endOfContentPointDiv = document.getElementById("contentEndPoint");
     var topbarHeightSize = 64;
 
     //Find the divs and calculate the size of each
     var dividerDiv = document.getElementById("divider");
-    var dividerHeight = document.body.clientHeight * 0.80;
+    var dividerHeight = document.body.clientHeight * 0.90;
     dividerDiv.style.height = dividerHeight + "px";
     var summaryDiv = document.getElementById("summary");
     var summaryHeight = document.body.clientHeight * 0.90;
@@ -45,17 +68,47 @@ function ScrollSummary() {
 
     //If is not reached in bottom of page, move the divider and summary with scroll
     if (isElementCurrentlyVisibleInScreen(endOfContentPointDiv) == false) {
-        dividerDiv.style.marginTop = Math.max(0, window.pageYOffset + ((document.body.clientHeight - dividerHeight - topbarHeightSize) * 0.5)) + 'px';
-        summaryDiv.style.marginTop = Math.max(0, window.pageYOffset + ((document.body.clientHeight - summaryHeight - topbarHeightSize) * 0.5)) + 'px';
+        dividerDiv.style.marginTop = "0px";
+        summaryDiv.style.marginTop = "0px";
+        dividerDiv.style.top = topbarHeightSize + "px";
+        summaryDiv.style.top = topbarHeightSize + "px";
     }
 
     //If is reached in bottom of page, put the divider and summary on max bottom
     if (isElementCurrentlyVisibleInScreen(endOfContentPointDiv) == true) {
-        var dividerDiv = document.getElementById("divider");
-        var summaryDiv = document.getElementById("summary");
+        var contentDiv = document.getElementById("content");
         dividerDiv.style.marginTop = (contentDiv.offsetHeight - dividerHeight) + "px";
         summaryDiv.style.marginTop = (contentDiv.offsetHeight - summaryHeight) + "px";
+        OnScrollSummary(document.getElementById("summary"));
     }
+
+    //Find highlighted summaryitems, and if found one not visible, scroll the summary for the highlighted summary item, only if needed
+    var allItemsHighlightedOfSummary = document.getElementsByClassName("summaryItemHighlighted");
+    for (var i = 0; i < allItemsHighlightedOfSummary.length; i++)
+        ScrollToElementOnlyIfNeeded(allItemsHighlightedOfSummary[i], summaryDiv);
+}
+
+//On scroll summary content
+function OnScrollSummary(element) {
+    var scrollIndicator = document.getElementById("summaryScrollIndicador");
+    var scrollIndicatorWidth = 24;
+    var scrollIndicatorHeight = 24;
+    var scrollIndicatorYPos = (document.getElementById("divider").offsetHeight + ((element.offsetHeight - document.getElementById("divider").offsetHeight) * 0.5) - (scrollIndicatorHeight + 4));
+    var scrollIndicatorXPos = ((element.offsetWidth / 2.0) + (scrollIndicatorWidth / 2) + (document.getElementById("divider").offsetWidth / 2.0));
+    scrollIndicator.setAttribute("style", "margin-top:" + scrollIndicatorYPos + "px; margin-left: -" + scrollIndicatorXPos + "px; height: " + scrollIndicatorHeight + "px; width: " + scrollIndicatorWidth + "px;");
+    scrollIndicator.firstElementChild.setAttribute("style", "opacity: 1.0;");
+
+    //If reached the max scroll OR mouse is in summary OR the end of page was reached
+    if (element.scrollTop >= (element.scrollHeight - element.offsetHeight) || isMouseOverSummary == true || isElementCurrentlyVisibleInScreen(document.getElementById("contentEndPoint")) == true) {
+        scrollIndicator.style.opacity = "0.0";
+    }
+    else {
+        scrollIndicator.style.opacity = "0.8";
+    }
+}
+function isMouseOverTheSummary(element, show) {
+    isMouseOverSummary = show;
+    OnScrollSummary(element);
 }
 
 //Code to check if a div is visible and highlight item im summary
@@ -63,6 +116,17 @@ function isElementCurrentlyVisibleInScreen(elm) {
     var rect = elm.getBoundingClientRect();
     var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
     return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+}
+function ScrollToElementOnlyIfNeeded(element, container) {
+    if (element.offsetTop < container.scrollTop) {
+        container.scrollTop = element.offsetTop;
+    } else {
+        const offsetBottom = element.offsetTop + element.offsetHeight;
+        const scrollBottom = container.scrollTop + container.offsetHeight;
+        if (offsetBottom > scrollBottom) {
+            container.scrollTop = offsetBottom - container.offsetHeight;
+        }
+    }
 }
 const DelayBetweenEachSummaryItemCheck = ms => new Promise(res => setTimeout(res, ms));
 const AsyncCheckForEachSummaryItemVisibility = async () => {
@@ -79,9 +143,9 @@ const AsyncCheckForEachSummaryItemVisibility = async () => {
             if (correspondentDiv == null)
                 continue;
             if (isElementCurrentlyVisibleInScreen(correspondentDiv) == true)
-                currentItem.setAttribute("style", "background-color: rgba(0, 96, 138, 0.15); padding-right: 4px; padding-left: 8px; border-bottom-right-radius: 4px; border-top-right-radius: 4px;");
+                currentItem.parentElement.classList.add("summaryItemHighlighted");
             else
-                currentItem.setAttribute("style", "");
+                currentItem.parentElement.classList.remove("summaryItemHighlighted");
         }
 
         await DelayBetweenEachSummaryItemCheck(42);
@@ -112,7 +176,7 @@ function GoToDivSmoothlyCore(elem, style, unit, from, to, time, prop) {
                 clearInterval(timer);
             }
 
-            ScrollSummary();
+            ScrollSummaryWithWindow();
             FillReadProgressBar();
         }, 16);
     if (prop) {
@@ -146,7 +210,7 @@ function OpenImageInFullScreen(src) {
     fullScreenViewerBg.style.opacity = "0.8";
     fullScreenViewerBg.style.pointerEvents = "all";
     fullScreenViewerPop.style.opacity = "1.0";
-    fullScreenViewerImg.style.pointerEvents = "all";
+    fullScreenViewerImg.style.pointerEvents = "none";
     fullScreenViewerImg.setAttribute("src", src);
     fullScreenViewerClose.style.pointerEvents = "all";
 
@@ -166,7 +230,7 @@ function CloseImageFullScreenViewer() {
     fullScreenViewerImg.style.pointerEvents = "none";
     fullScreenViewerClose.style.pointerEvents = "none";
 
-    document.body.style.overflow = "auto";
+    document.body.style.overflowY = "scroll";
 }
 
 //Function that post process all tools tags
@@ -180,6 +244,18 @@ function RenameNode(node, newNodeName) {
 
     return newNode;
 }
+function isInsideCodeTag(element) {
+    //Run a recursive code and return TRUE if desired element is inside of a CODE tag
+    var currentNode = element.parentElement;
+    while (currentNode !== undefined || currentNode != null) {
+        if (currentNode === undefined || currentNode == null)
+            break;
+        if (currentNode.nodeName == "CODE")
+            return true;
+        currentNode = currentNode.parentElement;
+    }
+    return false;
+}
 function RunPostProcessOfAllToolsTags() {
     var temporaryTags;
 
@@ -187,13 +263,26 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByClassName("summaryItem");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         currentItem.setAttribute("href", "topic-id:" + currentItem.getAttribute("correspondentTopicId"));
+    }
+    //all li itens that is submenu
+    temporaryTags = document.getElementsByClassName("summarySubItem");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        currentItem.setAttribute("style", "list-style-type: circle;");
+        currentItem.innerHTML = "<font style=\"font-weight: normal;\">" + currentItem.innerHTML + "</font>";
     }
 
     //topic
     temporaryTags = document.getElementsByTagName("doc.topic");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div id=\"" + currentItem.getAttribute("topicid") + "\">" + content + "</div>";
     }
@@ -202,14 +291,18 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.topictitle");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagTopicTitle\">" + content + "</div>";
+        currentItem.innerHTML = "<div class=\"toolTagTopicTitle\"><div>" + content + "</div><a href=\"#" + currentItem.parentElement.parentElement.getAttribute("topicid") + "\">#</a></div>";
     }
 
     //topicsubtitle
     temporaryTags = document.getElementsByTagName("doc.topicsubtitle");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagTopicSubtitle\">" + content + "</div>";
     }
@@ -218,6 +311,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.warn");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagWarnContainer\"><div class=\"toolTagWarnSubcontainer\"><div class=\"toolTagWarnIcon\"><img src=\"DocumentationFiles/tools/warn.png\"/></div><div class=\"toolTagWarnContent\"><div class=\"toolTagWarnText\">" + content + "</div></div></div></div>";
     }
@@ -226,6 +321,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.info");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagInfoContainer\"><div class=\"toolTagInfoSubcontainer\"><div class=\"toolTagInfoIcon\"><img src=\"DocumentationFiles/tools/info.png\"/></div><div class=\"toolTagInfoContent\"><div class=\"toolTagInfoText\">" + content + "</div></div></div></div>";
     }
@@ -234,6 +331,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.achiev");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagAchievContainer\"><div class=\"toolTagAchievSubcontainer\"><div class=\"toolTagAchievIcon\"><img src=\"DocumentationFiles/tools/achiev.png\"/></div><div class=\"toolTagAchievContent\"><div class=\"toolTagAchievText\">" + content + "</div></div></div></div>";
     }
@@ -242,6 +341,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.detach");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagDetach\">" + content + "</div>";
     }
@@ -250,6 +351,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.image");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagImageContainer\"><div class=\"toolTagImageImg\"><img src=\"" + currentItem.getAttribute("src") + "\" title=\"Click here to see in Fullscreen.\"  onmouseout=\"this.style.opacity = '1';\" onmouseover=\"this.style.opacity = '0.8';\" onclick=\"OpenImageInFullScreen('" + currentItem.getAttribute("src") + "');\" /></div><div class=\"toolTagImageComment\">" + ((content == "") ? "Representation" : content) + "</div></div>";
     }
@@ -258,6 +361,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.video");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagVideoContainer\"><div class=\"toolTagVideoVideo\"><video controls><source src=\"" + currentItem.getAttribute("src") + "\" type=\"video/mp4\">The video could not be displayed in your browser.</video></div><div class=\"toolTagVideoComment\">" + content + "</div></div>";
     }
@@ -266,13 +371,14 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.code");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var codeContent = currentItem.firstElementChild.innerHTML;
         if (currentItem.getAttribute("language") != "html" && currentItem.getAttribute("language") != "php" && currentItem.getAttribute("language") != "javascript")
             codeContent = codeContent.replace(/<\/.+?>/g, "");  //<-- remove all closing tags (if the language type is not html, php or javascript)
         codeContent = codeContent.replace(/>/g, "&gt;");    //<-- replace all > by &gt;
         codeContent = codeContent.replace(/</g, "&lt;");    //<-- replace all < by &lt;
-        if (codeContent.charAt(0) == "\n")
-            codeContent = codeContent.replace("\n", "");    //<-- remove first line break (if the first character is line break)
+        codeContent = codeContent.replace(/^\s+|\s+$/g, "");    //<-- remove all useless line breaks before code text and after code text
         currentItem.firstElementChild.innerHTML = codeContent;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagCodeContainer\"><div class=\"toolTagCodeComment\">Script Code</div><pre class=\"toolTagCodeContent\"><center class=\"toolTagCodeTitle\">" + currentItem.getAttribute("language").toUpperCase().replace("CSHARP", "C#") + "</center>" + content.replace("<code>", "<code data-language=\"" + currentItem.getAttribute("language") + "\">") + "</pre></div>";
@@ -282,7 +388,11 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = [0, 0];
     while (temporaryTags.length > 0) {
         temporaryTags = document.getElementsByTagName("doc.tablec"); //<- update list of all this tags
+        if (temporaryTags.length == 0)
+            break;
         var currentItem = temporaryTags[0];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         currentItem = RenameNode(currentItem, "tr");
         var content = currentItem.innerHTML;
         var contentSplitted = content.split(/=&gt;/); //=>
@@ -297,7 +407,11 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = [0, 0];
     while (temporaryTags.length > 0) {
         temporaryTags = document.getElementsByTagName("doc.tabler"); //<- update list of all this tags
+        if (temporaryTags.length == 0)
+            break;
         var currentItem = temporaryTags[0];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         currentItem = RenameNode(currentItem, "tr");
         var content = currentItem.innerHTML;
         var contentSplitted = content.split(/=&gt;/); //=>
@@ -312,16 +426,25 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = [0, 0];
     while (temporaryTags.length > 0) {
         temporaryTags = document.getElementsByTagName("doc.table"); //<- update list of all this tags
+        if (temporaryTags.length == 0)
+            break;
         var currentItem = temporaryTags[0];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         currentItem = RenameNode(currentItem, "table");
         currentItem.setAttribute("doc.table", "");
+        currentItem.setAttribute("class", "toolTagTable");
     }
 
     //tablecw
     temporaryTags = [0, 0];
     while (temporaryTags.length > 0) {
         temporaryTags = document.getElementsByTagName("doc.tablecw"); //<- update list of all this tags
+        if (temporaryTags.length == 0)
+            break;
         var currentItem = temporaryTags[0];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         var parentElement = currentItem.parentElement;
         currentItem.parentElement.removeChild(currentItem);
@@ -341,6 +464,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.list");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<ul class=\"toolTagList\" style=\"list-style-type: " + ((currentItem.getAttribute("isnumeric") == "true") ? "decimal" : "disc") + ";\">" + content + "</ul>";
     }
@@ -349,6 +474,8 @@ function RunPostProcessOfAllToolsTags() {
     temporaryTags = document.getElementsByTagName("doc.listr");
     for (var i = 0; i < temporaryTags.length; i++) {
         var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<li>" + content + "</li>";
     }
