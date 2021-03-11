@@ -310,7 +310,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagWarnContainer\"><div class=\"toolTagWarnSubcontainer\"><div class=\"toolTagWarnIcon\"><img src=\"DocumentationFiles/tools/warn.png\"/></div><div class=\"toolTagWarnContent\"><div class=\"toolTagWarnText\">" + content + "</div></div></div></div>";
+        currentItem.innerHTML = "<div class=\"toolTagWarnContainer\"><div class=\"toolTagWarnSubcontainer\"><div class=\"toolTagWarnIcon\"><img src=\"DocumentationFiles/tools/warn.webp\"/></div><div class=\"toolTagWarnContent\"><div class=\"toolTagWarnText\">" + content + "</div></div></div></div>";
     }
 
     //info
@@ -320,7 +320,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagInfoContainer\"><div class=\"toolTagInfoSubcontainer\"><div class=\"toolTagInfoIcon\"><img src=\"DocumentationFiles/tools/info.png\"/></div><div class=\"toolTagInfoContent\"><div class=\"toolTagInfoText\">" + content + "</div></div></div></div>";
+        currentItem.innerHTML = "<div class=\"toolTagInfoContainer\"><div class=\"toolTagInfoSubcontainer\"><div class=\"toolTagInfoIcon\"><img src=\"DocumentationFiles/tools/info.webp\"/></div><div class=\"toolTagInfoContent\"><div class=\"toolTagInfoText\">" + content + "</div></div></div></div>";
     }
 
     //achiev
@@ -330,7 +330,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagAchievContainer\"><div class=\"toolTagAchievSubcontainer\"><div class=\"toolTagAchievIcon\"><img src=\"DocumentationFiles/tools/achiev.png\"/></div><div class=\"toolTagAchievContent\"><div class=\"toolTagAchievText\">" + content + "</div></div></div></div>";
+        currentItem.innerHTML = "<div class=\"toolTagAchievContainer\"><div class=\"toolTagAchievSubcontainer\"><div class=\"toolTagAchievIcon\"><img src=\"DocumentationFiles/tools/achiev.webp\"/></div><div class=\"toolTagAchievContent\"><div class=\"toolTagAchievText\">" + content + "</div></div></div></div>";
     }
 
     //detach
