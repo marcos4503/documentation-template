@@ -18,7 +18,7 @@ This template is compatible with Mobile devices and Desktops, has a professional
 
 # Support projects like this
 
-If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! Thanks! 😀
+If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! <b>If you use this template, please also consider leaving a link to this repository at the bottom of your documentation, so that more people can get to know this template!</b> Thanks! 😀
 
 <br>
 
