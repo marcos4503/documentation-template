@@ -6,7 +6,7 @@
 # To use this template
 
 To use this Documentation Template just clone this repository (like ZIP for example), then go to the "Documentation-Template" folder and edit the "Documentation.html" file.
- It is recommended that you have knowledge of HTML (at least the basics) to edit this template. <b>If you use this template, please also consider leaving a link to this repository at the bottom of your documentation, so that more people can get
+ It is recommended that you have knowledge of HTML (at least the basics) to edit this template. <b>If you use this template, please also consider leaving a link to this repository at the footer of your documentation, so that more people can get
   to know this template!</b>
 
 # How to edit this Template
