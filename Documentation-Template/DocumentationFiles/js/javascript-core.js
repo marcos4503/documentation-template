@@ -99,12 +99,19 @@ function OnScrollSummary(element) {
     scrollIndicator.firstElementChild.setAttribute("style", "opacity: 1.0;");
 
     //If reached the max scroll OR mouse is in summary OR the end of page was reached
-    if (element.scrollTop >= (element.scrollHeight - element.offsetHeight) || isMouseOverSummary == true || isElementCurrentlyVisibleInScreen(document.getElementById("contentEndPoint")) == true) {
+    if (element.scrollTop >= (element.scrollHeight - element.offsetHeight - 1) || isMouseOverSummary == true || isElementCurrentlyVisibleInScreen(document.getElementById("contentEndPoint")) == true) {
         scrollIndicator.style.opacity = "0.0";
     }
     else {
         scrollIndicator.style.opacity = "0.8";
     }
+
+    //Avoid the body scroll if the summary already is in max top
+    if (element.scrollTop <= 0)
+        element.scrollTop = element.scrollTop + 1;
+    //Avoid the body scroll if the summary already is in max bottom
+    if (element.scrollTop >= (element.scrollHeight - element.offsetHeight))
+        element.scrollTop = element.scrollTop - 1;
 }
 function isMouseOverTheSummary(element, show) {
     isMouseOverSummary = show;
