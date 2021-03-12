@@ -360,7 +360,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagVideoContainer\"><div class=\"toolTagVideoVideo\"><video controls><source src=\"" + currentItem.getAttribute("src") + "\" type=\"video/mp4\">The video could not be displayed in your browser.</video></div><div class=\"toolTagVideoComment\">" + content + "</div></div>";
+        currentItem.innerHTML = "<div class=\"toolTagVideoContainer\"><div class=\"toolTagVideoVideo\"><video poster=\"" + currentItem.getAttribute("thumbnail") + "\" controls><source src=\"" + currentItem.getAttribute("src") + "\" type=\"video/mp4\">The video could not be displayed in your browser.</video></div><div class=\"toolTagVideoComment\">" + content + "</div></div>";
     }
 
     //code
