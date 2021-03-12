@@ -357,7 +357,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagImageContainer\"><div class=\"toolTagImageImg\"><img src=\"" + currentItem.getAttribute("src") + "\" title=\"Click here to see in Fullscreen.\"  onmouseout=\"this.style.opacity = '1';\" onmouseover=\"this.style.opacity = '0.8';\" onclick=\"OpenImageInFullScreen('" + currentItem.getAttribute("src") + "');\" /></div><div class=\"toolTagImageComment\">" + ((content == "") ? "Representation" : content) + "</div></div>";
+        currentItem.innerHTML = "<div class=\"toolTagImageContainer\"><div class=\"toolTagImageImg\"><img src=\"" + currentItem.getAttribute("src") + "\" title=\"Click here to see ''" + currentItem.getAttribute("src").split("/").pop() + "'' in Fullscreen.\"  onmouseout=\"this.style.opacity = '1';\" onmouseover=\"this.style.opacity = '0.8';\" onclick=\"OpenImageInFullScreen('" + currentItem.getAttribute("src") + "');\" /></div><div class=\"toolTagImageComment\">" + ((content == "") ? "Representation" : content) + "</div></div>";
     }
 
     //video
