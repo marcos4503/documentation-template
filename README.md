@@ -6,7 +6,8 @@
 # To use this template
 
 To use this Documentation Template just clone this repository (like ZIP for example), then go to the "Documentation-Template" folder and edit the "Documentation.html" file.
- It is recommended that you have knowledge of HTML (at least the basics) to edit this template.
+ It is recommended that you have knowledge of HTML (at least the basics) to edit this template. <b>If you use this template, please also consider leaving a link to this repository at the bottom of your documentation, so that more people can get
+  to know this template!</b>
 
 # How to edit this Template
 
@@ -18,7 +19,7 @@ This template is compatible with Mobile devices and Desktops, has a professional
 
 # Support projects like this
 
-If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! <b>If you use this template, please also consider leaving a link to this repository at the bottom of your documentation, so that more people can get to know this template!</b> Thanks! 😀
+If you liked this Documentation Template and found it useful for your projects, please consider making a donation (if possible). This would make it even more possible for me to create and continue to maintain projects like this, but if you cannot make a donation, it is still a pleasure for you to use it! Thanks! 😀
 
 <br>
 
