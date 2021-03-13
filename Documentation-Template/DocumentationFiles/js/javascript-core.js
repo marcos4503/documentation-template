@@ -37,6 +37,10 @@ window.onload = function () {
 
     var endBenchmark = window.performance.now();
     document.getElementById("processingTime").innerHTML = "" + (endBenchmark - startBenchmark).toFixed(1);
+
+    //Check by duplicated items on summary or in topics (and mark all summary items that is not connected to any topic)
+    MarkAllSummaryItemsAndTopicsThatIsNotConnected();
+    CheckIfAllSummaryItemsAndTopicsHaveValidsConnections();
 }
 window.onresize = function () {
     FillReadProgressBar();
@@ -158,6 +162,55 @@ const AsyncCheckForEachSummaryItemVisibility = async () => {
         await DelayBetweenEachSummaryItemCheck(42);
     }
 };
+function MarkAllSummaryItemsAndTopicsThatIsNotConnected() {
+    //This method will mark all summary items that is not connected to any topic
+    var allItemsOfSummary = document.getElementsByClassName("summaryItem");
+    for (var i = 0; i < allItemsOfSummary.length; i++) {
+        var currentItem = allItemsOfSummary[i];
+        if (currentItem == null)
+            continue;
+        var connectedTopic = document.getElementById(currentItem.getAttribute("correspondentTopicId"));
+        if (connectedTopic == null || connectedTopic === undefined) {
+            currentItem.parentElement.classList.add("summaryItemNotConnected");
+            currentItem.innerHTML = currentItem.innerHTML + "<br>(Topic Not Found In Documentation)";
+        }
+    }
+}
+function CheckIfAllSummaryItemsAndTopicsHaveValidsConnections() {
+    //Check if have summary items with duplicated id and notify
+    var allItemsOfSummary = document.getElementsByClassName("summaryItem");
+    var idsOfExistingSummaryItems = ["-1000"];
+    var idsOfExistingDuplicatedSummaryItems = [];
+    for (var i = 0; i < allItemsOfSummary.length; i++) {
+        var currentItem = allItemsOfSummary[i];
+        if (currentItem == null)
+            continue;
+        var summaryItemId = currentItem.getAttribute("correspondentTopicId");
+        if (idsOfExistingSummaryItems.includes(summaryItemId) == true)
+            idsOfExistingDuplicatedSummaryItems.push(summaryItemId);
+        else
+            idsOfExistingSummaryItems.push(summaryItemId);
+    }
+    if (idsOfExistingDuplicatedSummaryItems.length > 0)
+        window.alert("WARNING\n\nThere are one or more Summary Items, with duplicated IDs.\n\nDuplicateds Summary Item IDs [" + idsOfExistingDuplicatedSummaryItems + "]");
+
+    //Check if have topics with duplicated id and notify
+    var allTopics0 = document.getElementsByTagName("doc.topic");
+    var idsOfExistingTopics = ["-1000"];
+    var idsOfExistingDuplicatedTopics = [];
+    for (var i = 0; i < allTopics0.length; i++) {
+        var currentItem = allTopics0[i];
+        if (currentItem == null)
+            continue;
+        var topicId = currentItem.getAttribute("topicid");
+        if (idsOfExistingTopics.includes(topicId) == true)
+            idsOfExistingDuplicatedTopics.push(topicId);
+        else
+            idsOfExistingTopics.push(topicId);
+    }
+    if (idsOfExistingDuplicatedTopics.length > 0)
+        window.alert("WARNING\n\nThere are one or more Topics, with duplicated IDs.\n\nDuplicateds Topic IDs [" + idsOfExistingDuplicatedTopics + "]");
+}
 
 //Function to animate movement to a determined div
 function GoToDivSmoothly(linkElement) {
