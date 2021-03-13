@@ -209,6 +209,8 @@ function CheckIfAllSummaryItemsAndTopicsHaveValidsConnections() {
         if (currentItem == null)
             continue;
         var topicId = currentItem.getAttribute("topicid");
+        if (topicId == "" || topicId == undefined || topicId == null)
+            continue;
         if (idsOfExistingTopics.includes(topicId) == true)
             idsOfExistingDuplicatedTopics.push(topicId);
         else
