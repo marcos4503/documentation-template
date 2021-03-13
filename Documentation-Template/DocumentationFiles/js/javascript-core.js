@@ -165,6 +165,7 @@ const AsyncCheckForEachSummaryItemVisibility = async () => {
 function MarkAllSummaryItemsAndTopicsThatIsNotConnected() {
     //This method will mark all summary items that is not connected to any topic
     var allItemsOfSummary = document.getElementsByClassName("summaryItem");
+    var foundSummaryItemsNotConnected = false;
     for (var i = 0; i < allItemsOfSummary.length; i++) {
         var currentItem = allItemsOfSummary[i];
         if (currentItem == null)
@@ -173,8 +174,11 @@ function MarkAllSummaryItemsAndTopicsThatIsNotConnected() {
         if (connectedTopic == null || connectedTopic === undefined) {
             currentItem.parentElement.classList.add("summaryItemNotConnected");
             currentItem.innerHTML = currentItem.innerHTML + "<br>(Topic Not Found In Documentation)";
+            foundSummaryItemsNotConnected = true;
         }
     }
+    if (foundSummaryItemsNotConnected == false)
+        console.log("All Summary Items are correctly connected to their respective Topics.");
 }
 function CheckIfAllSummaryItemsAndTopicsHaveValidsConnections() {
     //Check if have summary items with duplicated id and notify
@@ -193,6 +197,8 @@ function CheckIfAllSummaryItemsAndTopicsHaveValidsConnections() {
     }
     if (idsOfExistingDuplicatedSummaryItems.length > 0)
         window.alert("WARNING\n\nThere are one or more Summary Items, with duplicated IDs.\n\nDuplicateds Summary Item IDs [" + idsOfExistingDuplicatedSummaryItems + "]");
+    if (idsOfExistingDuplicatedSummaryItems.length == 0)
+        console.log("No Summary Items with duplicate IDs were found.");
 
     //Check if have topics with duplicated id and notify
     var allTopics0 = document.getElementsByTagName("doc.topic");
@@ -210,6 +216,8 @@ function CheckIfAllSummaryItemsAndTopicsHaveValidsConnections() {
     }
     if (idsOfExistingDuplicatedTopics.length > 0)
         window.alert("WARNING\n\nThere are one or more Topics, with duplicated IDs.\n\nDuplicateds Topic IDs [" + idsOfExistingDuplicatedTopics + "]");
+    if (idsOfExistingDuplicatedTopics.length == 0)
+        console.log("No Topics with duplicate IDs were found.");
 }
 
 //Function to animate movement to a determined div
