@@ -1,8 +1,11 @@
+// @ts-nocheck
+
 //Global variables
 var isMouseOverSummary = false;
 
 //Global Cache variables
 var tablesProcesseds = 0;
+var alreadyAddedListenerToSearchBar = false;
 
 //Events
 window.onscroll = function () {
@@ -56,6 +59,113 @@ function FillReadProgressBar() {
     document.getElementById("readProgressBar").style.width = scrolled + "%";
 }
 
+//Function to make summary search bar works
+function StartSearchJob() {
+    //Change the buttons visibility
+    document.getElementById("summarySearchStart").style.display = "none";
+    document.getElementById("summaryTitleAndSearch").setAttribute("style", "grid-template-columns: auto;");
+
+    //Animate the summary title to search bar
+    document.getElementById("summaryTitle").style.width = "0px";
+    document.getElementById("summarySearchBar").style.width = "0px";
+
+    //Wait animation delay and change content
+    setTimeout(function () {
+        //Animate the summary title to search bar
+        setTimeout(function () {
+            document.getElementById("summarySearchBar").style.width = (document.getElementById("summary").offsetWidth - 36) + "px";
+            document.getElementById("summarySearchBar").getElementsByTagName("input")[0].focus();
+        }, 50);
+        setTimeout(function () {
+            document.getElementById("summarySearchEnd").style.display = "flex";
+        }, 300);
+        document.getElementById("summaryTitle").style.display = "none";
+        document.getElementById("summarySearchBar").style.display = "block";
+    }, 250);
+
+    //Add the lister to searchbar
+    if (alreadyAddedListenerToSearchBar == false)
+        document.getElementById("summarySearchBar").getElementsByTagName("input")[0].addEventListener("input", (event) => { DoTheSearchJob(event.target.value.toLowerCase()); });
+
+    //Inform that is added a listener to the search bar
+    alreadyAddedListenerToSearchBar = true;
+
+    //Do the first call to search job
+    DoTheSearchJob(document.getElementById("summarySearchBar").getElementsByTagName("input")[0].value.toLocaleLowerCase());
+}
+function DoTheSearchJob(searchKeywords) {
+    //Get needed elements
+    var allSummarySubItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summarySubItem");
+    var allSummaryItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summaryItem");
+
+    //Prepare the search results
+    var searchResults = 0;
+    var summarySearchResult = document.getElementById("summarySearchResult");
+
+    //If search keywords is not empty
+    if (searchKeywords != "") {
+        //First hide all
+        for (var i = 0; i < allSummarySubItems.length; i++)
+            allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 0.2;");
+        for (var i = 0; i < allSummaryItems.length; i++)
+            allSummaryItems[i].parentElement.setAttribute("style", "opacity: 0.2;");
+
+        //Now, show only that matches
+        for (var i = 0; i < allSummarySubItems.length; i++)
+            if (allSummarySubItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
+                allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 1.0;");
+                searchResults += 1;
+            }
+        for (var i = 0; i < allSummaryItems.length; i++)
+            if (allSummaryItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
+                allSummaryItems[i].parentElement.setAttribute("style", "opacity: 1.0;");
+                searchResults += 1;
+            }
+    }
+    //If search keywords is empty
+    if (searchKeywords == "") {
+        for (var i = 0; i < allSummarySubItems.length; i++)
+            allSummarySubItems[i].setAttribute("style", "list-style-type: circle;");
+        for (var i = 0; i < allSummaryItems.length; i++)
+            allSummaryItems[i].parentElement.removeAttribute("style");
+    }
+
+    //Publish the search results
+    if (searchResults > 0) {
+        summarySearchResult.style.opacity = "0.7";
+        summarySearchResult.innerHTML = "Found " + searchResults + " results";
+    }
+    if (searchResults == 0)
+        summarySearchResult.style.opacity = "0";
+}
+function FinishSearchJob() {
+    //Change the buttons visibility
+    document.getElementById("summarySearchEnd").style.display = "none";
+    document.getElementById("summaryTitleAndSearch").removeAttribute("style");
+
+    //Animate the summary title to search bar
+    setTimeout(function () {
+        document.getElementById("summaryTitle").style.width = "0px";
+        document.getElementById("summarySearchBar").style.width = "0px";
+    }, 50);
+
+    //Wait animation delay and change content
+    setTimeout(function () {
+        //Enable the finish button
+        document.getElementById("summarySearchStart").style.display = "flex";
+
+        //Animate the summary title to search bar
+        setTimeout(function () {
+            document.getElementById("summaryTitle").style.width = (document.getElementById("summary").offsetWidth - 24 - 48) + "px";
+        }, 50);
+        document.getElementById("summaryTitle").style.display = "block";
+        document.getElementById("summarySearchBar").style.display = "none";
+    }, 300);
+
+    //Do the last call to search job, to reset the summary
+    DoTheSearchJob("");
+}
+
 //Scroll vertically the summary div code
 function ScrollSummaryWithWindow() {
     //Do calcs to know total page height
@@ -94,6 +204,17 @@ function ScrollSummaryWithWindow() {
 
 //On scroll summary content
 function OnScrollSummary(element) {
+    //Resize responsively the summary title
+    if (document.getElementById("summarySearchStart").style.display != "none")
+        document.getElementById("summaryTitle").style.width = (document.getElementById("summary").offsetWidth - 24 - 48) + "px";
+
+    //Position responsively the summary search finish button
+    var endSummarySearchBt = document.getElementById("summarySearchEnd");
+    var endSummarySearchBtWidth = 12;
+    var endSummarySearchBtPosX = (element.offsetWidth - endSummarySearchBtWidth - 24);
+    endSummarySearchBt.style.left = endSummarySearchBtPosX + "px";
+
+    //Position the summary scroll indicator
     var scrollIndicator = document.getElementById("summaryScrollIndicador");
     var scrollIndicatorWidth = 24;
     var scrollIndicatorHeight = 24;

@@ -53,7 +53,13 @@
         <div class="subBody">
             <!-- SUMMARY -->
             <div class="subBodySummary" id="summary" onscroll="OnScrollSummary(this);" onmouseover="isMouseOverTheSummary(this, true);" onmouseout="isMouseOverTheSummary(this, false);">
-                <div class="subBodySummaryTitle">Summary of Documentation</div>
+                <div id="summaryTitleAndSearch" class="subBodySummaryTitleAndSearch">
+                    <div id="summaryTitle" class="subBodySummaryTitle">Summary</div>
+                    <div id="summarySearchBar" class="subBodySummarySearchBar"><input type="text" placeholder="Search in Summary..." /></div>
+                    <div id="summarySearchStart" class="subBodySummarySearchStart" onclick="StartSearchJob();"><img src="DocumentationFiles/tools/mag-glass-start.webp" /></div>
+                    <div id="summarySearchEnd" class="subBodySummarySearchEnd" onclick="FinishSearchJob();"><img src="DocumentationFiles/tools/mag-glass-end.webp" /></div>
+                </div>
+                <div id="summarySearchResult" class="subBodySummarySearchResults">...</div>
                 <!-- -------------------------------------------------------------------------- START OF SUMMARY CONTENT -------------------------------------------------------------------------- -->
                 <ul>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="1">What is this Documentation Template?</a></li>
