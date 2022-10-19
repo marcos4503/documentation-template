@@ -49,6 +49,10 @@
     border-top-right-radius: 0px;
     cursor: pointer;
 }
+.toolTagCodeTitleBar{
+    display: grid;
+    grid-template-columns: 78px auto 78px;
+}
 .toolTagCodeTitle{
     font-style: italic;
     color: rgb(121, 121, 121);
@@ -59,6 +63,28 @@
 }
 .toolTagCodeComment{
     text-align: center;
-    font-style: italic;
     color: rgb(121, 121, 121);
+}
+.toolTagCodeControls{
+    display: grid;
+    grid-template-columns: 36px 36px;
+}
+.toolTagCodeControlButton{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.toolTagCodeControlButton img{
+    width: auto;
+    height: 18px;
+}
+.toolTagCodeTextarea{
+    height: 1px;
+    padding: 0px;
+    border: 0px;
+    border-style: none;
+    opacity: 0;
+    z-index: -100;
 }

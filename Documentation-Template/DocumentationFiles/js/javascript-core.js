@@ -428,6 +428,52 @@ function CloseImageFullScreenViewer() {
     fullScreenViewerClose.style.pointerEvents = "none";
 }
 
+//Functions of controls from script code showers
+function CopyScriptCodeToClipboard(codeNodeId) {
+    //Copy the code to clipboard
+    document.getElementById(codeNodeId + "_textarea").select();
+    document.execCommand("copy");
+
+    //Alert
+    window.alert("The Script Code was copied to your Clipboard!");
+}
+function ShowExpandedScriptCode(codeNodeId) {
+    //Get all components
+    var fullScreenViewerBg = document.getElementById("fullScreenCodeViewerBg");
+    var fullScreenViewerPop = document.getElementById("fullScreenCodeViewerPop");
+    var fullScreenViewerSb = document.getElementById("fullScreenCodeViewerSandbox");
+    var fullScreenViewerClose = document.getElementById("fullScreenCodeClose");
+
+    //Get the HTML of script code to show
+    var htmlCodeToView = document.getElementById(codeNodeId).getElementsByTagName("pre")[0].innerHTML;
+
+    //Open window
+    fullScreenViewerBg.style.opacity = "0.8";
+    fullScreenViewerBg.style.pointerEvents = "all";
+    fullScreenViewerPop.style.opacity = "1.0";
+    fullScreenViewerSb.style.pointerEvents = "all";
+    fullScreenViewerSb.innerHTML = "<pre class=\"rainbow-show\" data-trimmed=\"true\">" + htmlCodeToView + "</pre>";
+    fullScreenViewerClose.style.pointerEvents = "all";
+
+    //Post format the code in viewer
+    fullScreenViewerSb.getElementsByTagName("center")[0].classList.remove("toolTagCodeTitle");
+    fullScreenViewerSb.getElementsByTagName("center")[0].innerHTML = "<font style=\"font-weight: bold; font-size: 14px; color: #630000;\">" + fullScreenViewerSb.getElementsByTagName("center")[0].innerHTML + " Code</font>";
+}
+function CloseExpandedScriptCode() {
+    //Get all components
+    var fullScreenViewerBg = document.getElementById("fullScreenCodeViewerBg");
+    var fullScreenViewerPop = document.getElementById("fullScreenCodeViewerPop");
+    var fullScreenViewerSb = document.getElementById("fullScreenCodeViewerSandbox");
+    var fullScreenViewerClose = document.getElementById("fullScreenCodeClose");
+
+    //Close window
+    fullScreenViewerBg.style.opacity = "0.0";
+    fullScreenViewerBg.style.pointerEvents = "none";
+    fullScreenViewerPop.style.opacity = "0.0";
+    fullScreenViewerSb.style.pointerEvents = "none";
+    fullScreenViewerClose.style.pointerEvents = "none";
+}
+
 //Function that post process all tools tags
 function RenameNode(node, newNodeName) {
     const newNode = node.ownerDocument.createElement(newNodeName);
@@ -576,7 +622,7 @@ function RunPostProcessOfAllToolsTags() {
         codeContent = codeContent.replace(/^\s+|\s+$/g, "");    //<-- remove all useless line breaks before code text and after code text
         currentItem.firstElementChild.innerHTML = codeContent;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagCodeContainer\"><div class=\"toolTagCodeComment\">Script Code</div><pre class=\"toolTagCodeContent\"><center class=\"toolTagCodeTitle\">" + currentItem.getAttribute("language").toUpperCase().replace("CSHARP", "C#") + "</center>" + content.replace("<code>", "<code data-language=\"" + currentItem.getAttribute("language") + "\">") + "</pre></div>";
+        currentItem.innerHTML = "<div id=\"code_" + i + "\" class=\"toolTagCodeContainer\"><div class=\"toolTagCodeTitleBar\"><div></div><div class=\"toolTagCodeComment\">Script Code</div><div class=\"toolTagCodeControls\"><div class=\"toolTagCodeControlButton\"><img src=\"DocumentationFiles/tools/copy.webp\" title=\"Copy code to Clipboard\" onclick=\"CopyScriptCodeToClipboard('code_" + i + "');\"/></div><div class=\"toolTagCodeControlButton\"><img src=\"DocumentationFiles/tools/fullscreen.webp\" title=\"Expand the code\"/ onclick=\"ShowExpandedScriptCode('code_" + i + "');\"></div></div></div><pre class=\"toolTagCodeContent\"><center class=\"toolTagCodeTitle\">" + currentItem.getAttribute("language").toUpperCase().replace("CSHARP", "C#") + "</center>" + content.replace("<code>", "<code data-language=\"" + currentItem.getAttribute("language") + "\">") + "</pre><textarea id=\"code_" + i + "_textarea\" class=\"toolTagCodeTextarea\">" + codeContent + "</textarea></div>";
     }
 
     //tablec

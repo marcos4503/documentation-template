@@ -39,6 +39,15 @@
                 <img src="" id="fullScreenImageViewerImg" />
             </div>
         </div>
+        <div class="fullscreenCodeBackground" id="fullScreenCodeViewerBg" onclick="CloseExpandedScriptCode();"></div>
+        <div class="fullscreenCodePopupContent" id="fullScreenCodeViewerPop">
+            <div class="fullscreenCodePopup">
+                <div class="fullscreenCodePopupClose">
+                    <div>Script Code Viewer</div><img src="DocumentationFiles/tools/close.webp" id="fullScreenCodeClose" title="Click here to close Viewer." onclick="CloseExpandedScriptCode();" />
+                </div>
+                <div class="fullscreenCodeSandboxViewer" id="fullScreenCodeViewerSandbox"></div>
+            </div>
+        </div>
         <div class="fullscreenLoadingContent" id="fullscreenLoadingBlock">
             <div class="fullscreenLoadingBg">
                 <div class="fullscreenLoading">
