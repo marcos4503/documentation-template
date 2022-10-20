@@ -95,10 +95,12 @@
                     <li class="summarySubItem">Responsive Images</li>
                     <ul>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="13">Displaying a responsive image with zoom and caption controls</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="13a">Displaying responsive images that don't interrupt the flow of text</a></li>
                     </ul>
                     <li class="summarySubItem">Responsive Videos</li>
                     <ul>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="14">Displaying a responsive video</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="14a">Displaying responsive videos that don't interrupt the flow of text</a></li>
                     </ul>
                     <li class="summarySubItem">Formatted Codes</li>
                     <ul>
@@ -246,10 +248,23 @@ EDIT HERE TOO
                     More two times...
                     <doc.topictitle>This is a other Title for a Topic!</doc.topictitle>
                     <doc.topictitle>This is a other other Title for a other Topic!</doc.topictitle>
+                    If you use the <doc.detach>:</doc.detach> character in the middle of a topic title, a separator will be shown. This will only work for the first <doc.detach>:</doc.detach> character in the topic title. See the code
+                    below as example.
+                    <doc.code language="html"><code>
+<doc.topictitle>Example: Topic Title!</doc.topictitle>
+                    </code></doc.code>
+                    And the result for this code is...
+                    <doc.topictitle>Example: Topic Title!</doc.topictitle>
+                    This separation can be especially useful when you want to separate the topic title into <doc.detach>SummarySubItem</doc.detach> &gt; <doc.detach>TopicTitle</doc.detach>, that way you can display the name of the SubItem
+                    that the Topic is in the Summary.
                     <doc.info>
                         Note that when you move the cursor over a Title, a "#" symbol is revealed, so that you can get a reference to that topic as a link. Note that this will only work if your <doc.detach>doc.topictitle</doc.detach>
                         is inside <doc.detach>doc.topic</doc.detach> tag.
                     </doc.info>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <br>
                     <br>
                 </doc.topic>
@@ -268,6 +283,10 @@ EDIT HERE TOO
                     More two times...
                     <doc.topicsubtitle>This is a other Subtitle for a Topic!</doc.topicsubtitle>
                     <doc.topicsubtitle>This is a other other Subtitle for a other Topic!</doc.topicsubtitle>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <br>
                     <br>
                 </doc.topic>
@@ -351,16 +370,106 @@ reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ex
                 </doc.topic>
                 <!-- #endregion -->
 
+                <!-- #region Displaying responsive images that don't interrupt the flow of text -->
+                <doc.topic topicid="13a">
+                    <doc.topictitle>Displaying responsive images that don't interrupt the flow of text</doc.topictitle>
+
+                    Sometimes it may be necessary to display an image in the documentation, but in such a way that the flow of text is not interrupted. This is possible to do with this Template! For this, use the code below...
+                    <doc.code language="html"><code>
+<doc.frame contentside="right" contentheight="120px">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+    to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting
+    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+    centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+    desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+    ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+    of Lorem Ipsum.
+
+    <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
+</doc.frame>
+                    </code></doc.code>
+                    And the result for this code is...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="120px">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                        to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+                        centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                        essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+                        of Lorem Ipsum.
+                        <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
+                    </doc.frame>
+                    <doc.info>
+                        For this tag to work well, you MUST respect the order of <doc.detach>Text</doc.detach> and then the <doc.detach>&lt;doc.frameci&gt;</doc.detach> tag. Do not try to change this order.
+                    </doc.info>
+
+                </doc.topic>
+                <!-- #endregion -->
+
                 <!-- #region Displaying a responsive video -->
                 <doc.topic topicid="14">
                     <doc.topictitle>Displaying a responsive video</doc.topictitle>
 
-                    To display a fully responsive image, automatically formatted and with zoom and caption controls, use the code below!
+                    To display a fully responsive video, automatically formatted, use the code below!
                     <doc.code language="html"><code>
 <doc.video src="DocumentationFiles/videos/video.mp4" thumbnail="DocumentationFiles/thumbs/video.png">Legend goes here!</doc.video>
                     </code></doc.code>
                     And the result for this code is...
                     <doc.video src="DocumentationFiles/videos/video.mp4" thumbnail="DocumentationFiles/thumbs/video.png">Legend goes here!</doc.video>
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Displaying responsive videos that don't interrupt the flow of text -->
+                <doc.topic topicid="14a">
+                    <doc.topictitle>Displaying responsive videos that don't interrupt the flow of text</doc.topictitle>
+
+                    Sometimes it may be necessary to display an video in the documentation, but in such a way that the flow of text is not interrupted. This is possible to do with this Template! For this, use the code below...
+                    <doc.code language="html"><code>
+<doc.frame contentside="right" contentheight="250px">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+    to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting
+    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+    centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+    desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+    ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+    of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+    ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+    of Lorem Ipsum.
+
+    <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
+</doc.frame>
+                    </code></doc.code>
+                    And the result for this code is...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="250px">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                        to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+                        centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                        essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+                        of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+                        essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+                        of Lorem Ipsum.
+                        <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
+                    </doc.frame>
+                    <doc.info>
+                        For this tag to work well, you MUST respect the order of <doc.detach>Text</doc.detach> and then the <doc.detach>&lt;doc.framecv&gt;</doc.detach> tag. Do not try to change this order.
+                    </doc.info>
+
                 </doc.topic>
                 <!-- #endregion -->
 

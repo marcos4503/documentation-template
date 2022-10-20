@@ -535,7 +535,16 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagTopicTitle\"><div>" + content + "</div><a href=\"#" + currentItem.parentElement.parentElement.getAttribute("topicid") + "\">#</a></div>";
+        var topicTitleSeparated = content.split(/:(.*)/s);  //<-- Split only the first ocurrenct of ':' character
+        if (topicTitleSeparated.length >= 2) {
+            var partOne = topicTitleSeparated[0];
+            var partTwo = topicTitleSeparated[1];
+            if (partTwo.charAt(0) == " ")             //<-- Remove empty space on start of the string
+                partTwo = partTwo.replace(/ /, "");
+            currentItem.innerHTML = "<div class=\"toolTagTopicTitle\"><div>" + partOne + "<div class=\"toolTagTopicSeparator\"><img src=\"DocumentationFiles/tools/topic-separator.webp\"/></div>" + partTwo + "</div><a href=\"#" + currentItem.parentElement.parentElement.getAttribute("topicid") + "\">#</a></div>";
+        }
+        if (topicTitleSeparated.length == 1)
+            currentItem.innerHTML = "<div class=\"toolTagTopicTitle\"><div>" + topicTitleSeparated[0] + "</div><a href=\"#" + currentItem.parentElement.parentElement.getAttribute("topicid") + "\">#</a></div>";
     }
 
     //topicsubtitle
@@ -545,7 +554,7 @@ function RunPostProcessOfAllToolsTags() {
         if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
             continue;
         var content = currentItem.innerHTML;
-        currentItem.innerHTML = "<div class=\"toolTagTopicSubtitle\">" + content + "</div>";
+        currentItem.innerHTML = "<div class=\"toolTagTopicSubtitle\"><div class=\"toolTagTopicSubtitleSeparator\"><img src=\"DocumentationFiles/tools/topic-subtitle.webp\"/></div>" + content + "</div>";
     }
 
     //warn
@@ -596,6 +605,39 @@ function RunPostProcessOfAllToolsTags() {
             continue;
         var content = currentItem.innerHTML;
         currentItem.innerHTML = "<div class=\"toolTagImageContainer\"><div class=\"toolTagImageImg\"><img src=\"" + currentItem.getAttribute("src") + "\" title=\"Click here to see ''" + currentItem.getAttribute("src").split("/").pop() + "'' in Fullscreen.\"  onmouseout=\"this.style.opacity = '1';\" onmouseover=\"this.style.opacity = '0.8';\" onclick=\"OpenImageInFullScreen('" + currentItem.getAttribute("src") + "');\" /></div><div class=\"toolTagImageComment\">" + ((content == "") ? "Representation" : content) + "</div></div>";
+    }
+
+    //frame
+    temporaryTags = document.getElementsByTagName("doc.frame");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        var content = currentItem.innerHTML.replace(/<doc.frame/, "§₢");
+        var contentDivided = content.split(/₢(.*)/s);
+        var text = contentDivided[0].replaceAll("§", "");
+        var content = "<doc.frame" + contentDivided[1];
+        currentItem.innerHTML = "<div class=\"toolTagFrame\"><div style=\"float: " + currentItem.getAttribute("contentside") + "; margin-" + (currentItem.getAttribute("contentside") == "left" ? "right" : "left") + ": 22px; margin-top: 5px; margin-bottom: 22px; max-width: 70%;\">" + content + "</div>" + text + "</div>";
+    }
+
+    //frameci
+    temporaryTags = document.getElementsByTagName("doc.frameci");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        var content = currentItem.innerHTML;
+        currentItem.innerHTML = "<div class=\"toolTagFrameImageContainer\"><div class=\"toolTagFrameImageImg\"><img src=\"" + currentItem.getAttribute("src") + "\" title=\"Click here to see ''" + currentItem.getAttribute("src").split("/").pop() + "'' in Fullscreen.\"  onmouseout=\"this.style.opacity = '1';\" onmouseover=\"this.style.opacity = '0.8';\" onclick=\"OpenImageInFullScreen('" + currentItem.getAttribute("src") + "');\" style=\"max-height: " + currentItem.parentElement.parentElement.parentElement.getAttribute("contentheight") + ";\" /></div><div class=\"toolTagFrameImageComment\">" + ((content == "") ? "Representation" : content) + "</div></div>";
+    }
+
+    //framecv
+    temporaryTags = document.getElementsByTagName("doc.framecv");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        var content = currentItem.innerHTML;
+        currentItem.innerHTML = "<div class=\"toolTagFrameVideoContainer\"><div class=\"toolTagFrameVideoVideo\"><video poster=\"" + currentItem.getAttribute("thumbnail") + "\" style=\"max-height: " + currentItem.parentElement.parentElement.parentElement.getAttribute("contentheight") + ";\" controls><source src=\"" + currentItem.getAttribute("src") + "\" type=\"video/mp4\">The video could not be displayed in your browser.</video></div><div class=\"toolTagFrameVideoComment\">" + content + "</div></div>";
     }
 
     //video

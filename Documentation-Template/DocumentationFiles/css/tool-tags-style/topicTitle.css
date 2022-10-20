@@ -8,6 +8,16 @@
     margin-top: 18px;
     margin-bottom: 18px;
 }
+.toolTagTopicSeparator{
+    display: inline;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.toolTagTopicSeparator img{
+    width: 14px;
+    height: 14px;
+    opacity: 0.3;
+}
 .toolTagTopicTitle a:nth-child(2){
     display: flex;
     justify-content: center;
