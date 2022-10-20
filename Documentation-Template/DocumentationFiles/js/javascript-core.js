@@ -640,6 +640,18 @@ function RunPostProcessOfAllToolsTags() {
         currentItem.innerHTML = "<div class=\"toolTagFrameVideoContainer\"><div class=\"toolTagFrameVideoVideo\"><video poster=\"" + currentItem.getAttribute("thumbnail") + "\" style=\"max-height: " + currentItem.parentElement.parentElement.parentElement.getAttribute("contentheight") + ";\" controls><source src=\"" + currentItem.getAttribute("src") + "\" type=\"video/mp4\">The video could not be displayed in your browser.</video></div><div class=\"toolTagFrameVideoComment\">" + content + "</div></div>";
     }
 
+    //flextext
+    temporaryTags = document.getElementsByTagName("doc.flextext");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        var newFill = document.createElement("div");
+        newFill.setAttribute("style", "display: inline; opacity: 0; pointer-events: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;");
+        newFill.innerHTML = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        currentItem.parentNode.replaceChild(newFill, currentItem);
+    }
+
     //video
     temporaryTags = document.getElementsByTagName("doc.video");
     for (var i = 0; i < temporaryTags.length; i++) {

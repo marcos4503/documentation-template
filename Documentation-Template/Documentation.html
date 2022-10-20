@@ -405,6 +405,38 @@ reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ex
                         of Lorem Ipsum.
                         <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
                     </doc.frame>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    If the image is positioned to the right, but the text is not large enough to keep the image against the right edge, as in the example below...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="120px">
+                        This is a short text!
+                        <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
+                    </doc.frame>
+                    <br>
+                    <br>
+                    You can use the code below to force the image to be leaning against the right edge.
+                    <doc.code language="html"><code>
+<doc.frame contentside="right" contentheight="120px">
+    This is a short text!
+    <doc.flextext></doc.flextext>
+    <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
+</doc.frame>
+                    </code></doc.code>
+                    And the result for this code is...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="120px">
+                        This is a short text!
+                        <doc.flextext></doc.flextext>
+                        <doc.frameci src="DocumentationFiles/images/test1.png">Square Image (800x800)</doc.frameci>
+                    </doc.frame>
+                    In addition, the <doc.detach>&lt;doc.frame&gt;</doc.detach> tag behaves as if it were part of the text. So if you add this tag right after your text, it will appear a line below your text, continuing it. The same thing
+                    goes for the text that comes after the <doc.detach>&lt;doc.frame&gt;</doc.detach> tag. If you want to avoid this behavior, simply use the <doc.detach>&lt;br&gt;</doc.detach> tag before and after the
+                    <doc.detach>&lt;doc.frame&gt;</doc.detach> tag!
                     <doc.info>
                         For this tag to work well, you MUST respect the order of <doc.detach>Text</doc.detach> and then the <doc.detach>&lt;doc.frameci&gt;</doc.detach> tag. Do not try to change this order.
                     </doc.info>
@@ -466,6 +498,38 @@ reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Ex
                         of Lorem Ipsum.
                         <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
                     </doc.frame>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    If the video is positioned to the right, but the text is not large enough to keep the video against the right edge, as in the example below...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="120px">
+                        This is a short text!
+                        <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
+                    </doc.frame>
+                    <br>
+                    <br>
+                    You can use the code below to force the video to be leaning against the right edge.
+                    <doc.code language="html"><code>
+<doc.frame contentside="right" contentheight="250px">
+    This is a short text!
+    <doc.flextext></doc.flextext>
+    <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
+</doc.frame>
+                    </code></doc.code>
+                    And the result for this code is...
+                    <br>
+                    <br>
+                    <doc.frame contentside="right" contentheight="250px">
+                        This is a short text!
+                        <doc.flextext></doc.flextext>
+                        <doc.framecv src="DocumentationFiles/videos/square.mp4" thumbnail="DocumentationFiles/thumbs/square.png">Legend goes here!</doc.framecv>
+                    </doc.frame>
+                    In addition, the <doc.detach>&lt;doc.frame&gt;</doc.detach> tag behaves as if it were part of the text. So if you add this tag right after your text, it will appear a line below your text, continuing it. The same thing
+                    goes for the text that comes after the <doc.detach>&lt;doc.frame&gt;</doc.detach> tag. If you want to avoid this behavior, simply use the <doc.detach>&lt;br&gt;</doc.detach> tag before and after the
+                    <doc.detach>&lt;doc.frame&gt;</doc.detach> tag!
                     <doc.info>
                         For this tag to work well, you MUST respect the order of <doc.detach>Text</doc.detach> and then the <doc.detach>&lt;doc.framecv&gt;</doc.detach> tag. Do not try to change this order.
                     </doc.info>
