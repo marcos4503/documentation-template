@@ -6,6 +6,7 @@ var isMouseOverSummary = false;
 //Global Cache variables
 var tablesProcesseds = 0;
 var alreadyAddedListenerToSearchBar = false;
+var pendentSearchJob = undefined;
 
 //Events
 window.onscroll = function () {
@@ -98,7 +99,7 @@ function StartSearchJob() {
 
     //Add the lister to searchbar
     if (alreadyAddedListenerToSearchBar == false)
-        document.getElementById("summarySearchBar").getElementsByTagName("input")[0].addEventListener("input", (event) => { DoTheSearchJob(event.target.value.toLowerCase()); });
+        document.getElementById("summarySearchBar").getElementsByTagName("input")[0].addEventListener("input", (event) => { DoTheSearchJob(event.target.value.toLowerCase(), true); });
 
     //Inform that is added a listener to the search bar
     alreadyAddedListenerToSearchBar = true;
@@ -106,90 +107,113 @@ function StartSearchJob() {
     //Do the first call to search job
     document.getElementById("summarySearchMarkersForSubItems").setAttribute("style", "display: block;");
     document.getElementById("summarySearchMarkersForItems").setAttribute("style", "display: block;");
-    DoTheSearchJob(document.getElementById("summarySearchBar").getElementsByTagName("input")[0].value.toLocaleLowerCase());
+    DoTheSearchJob(document.getElementById("summarySearchBar").getElementsByTagName("input")[0].value.toLocaleLowerCase(), false);
 }
-function DoTheSearchJob(searchKeywords) {
-    //Get needed elements
-    var allSummarySubItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summarySubItem");
-    var allSummaryItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summaryItem");
+function DoTheSearchJob(searchKeywords, waitDelay) {
+    //Time to wait
+    var delayForSearchMillis = -1;
 
-    //Prepare the search results
-    var searchResults = 0;
-    var summarySearchResult = document.getElementById("summarySearchResult");
-    var searchResultsForSubItemsPositions = [];
-    var searchResultsForItemsPositions = [];
-    var summarySearchMarkersForSubItems = document.getElementById("summarySearchMarkersForSubItems");
-    var summarySearchMarkersForItems = document.getElementById("summarySearchMarkersForItems");
-    var summaryTotalHeight = document.getElementById("summary").getElementsByTagName("ul")[0].offsetHeight;
+    //Define the time to wait
+    if (waitDelay == true)
+        delayForSearchMillis = 1500;
+    if (waitDelay == false)
+        delayForSearchMillis = 100;
 
-    //If search keywords is not empty
-    if (searchKeywords != "") {
-        //First hide all
-        for (var i = 0; i < allSummarySubItems.length; i++)
-            allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 0.2;");
-        for (var i = 0; i < allSummaryItems.length; i++)
-            allSummaryItems[i].parentElement.setAttribute("style", "opacity: 0.2;");
+    //If have a pendent search job, cancel it
+    if (pendentSearchJob !== undefined)
+        clearTimeout(pendentSearchJob);
 
-        //Now, show only that matches
-        for (var i = 0; i < allSummarySubItems.length; i++)
-            if (allSummarySubItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
-                allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 1.0;");
-                searchResultsForSubItemsPositions.push(allSummarySubItems[i].offsetTop / summaryTotalHeight * 100.0);
-                searchResults += 1;
-            }
-        for (var i = 0; i < allSummaryItems.length; i++)
-            if (allSummaryItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
-                allSummaryItems[i].parentElement.setAttribute("style", "opacity: 1.0;");
-                searchResultsForItemsPositions.push(allSummaryItems[i].parentElement.offsetTop / summaryTotalHeight * 100.0);
-                searchResults += 1;
-            }
-    }
-    //If search keywords is empty
-    if (searchKeywords == "") {
-        for (var i = 0; i < allSummarySubItems.length; i++)
-            allSummarySubItems[i].setAttribute("style", "list-style-type: circle;");
-        for (var i = 0; i < allSummaryItems.length; i++)
-            allSummaryItems[i].parentElement.removeAttribute("style");
-    }
+    //Create a new search task
+    pendentSearchJob = setTimeout(function () {
+        //Get needed elements
+        var allSummarySubItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summarySubItem");
+        var allSummaryItems = document.getElementById("summary").getElementsByTagName("ul")[0].getElementsByClassName("summaryItem");
 
-    //Publish the search results in the search markers
-    //----- Publish on Search Markers for Summary SubItems -------
-    var generatedGradientForSubItems = "linear-gradient(top, transparent 0%,";
-    for (var i = 0; i < searchResultsForSubItemsPositions.length; i++) {
-        //Get the current percent fixed
-        var currentPercent = Math.round(searchResultsForSubItemsPositions[i]);
-        if (currentPercent > 100.0)
-            currentPercent = 100.0;
-        if (currentPercent < 0.0)
-            currentPercent = 0.0;
+        //Prepare the search results
+        var searchResults = 0;
+        var summarySearchResult = document.getElementById("summarySearchResult");
+        var searchResultsForSubItemsPositions = [];
+        var searchResultsForItemsPositions = [];
+        var summarySearchMarkersForSubItems = document.getElementById("summarySearchMarkersForSubItems");
+        var summarySearchMarkersForItems = document.getElementById("summarySearchMarkersForItems");
+        var summaryTotalHeight = document.getElementById("summary").getElementsByTagName("ul")[0].offsetHeight;
 
-        //Add the current percent to backgroud image
-        generatedGradientForSubItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
-    }
-    generatedGradientForSubItems += " transparent 100%)";
-    summarySearchMarkersForSubItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForSubItems + "; background-image: -webkit-" + generatedGradientForSubItems + ";");
-    //----- Publish on Search Markers for Summary Items -------
-    var generatedGradientForItems = "linear-gradient(top, transparent 0%,";
-    for (var i = 0; i < searchResultsForItemsPositions.length; i++) {
-        //Get the current percent fixed
-        var currentPercent = Math.round(searchResultsForItemsPositions[i]);
-        if (currentPercent > 100.0)
-            currentPercent = 100.0;
-        if (currentPercent < 0.0)
-            currentPercent = 0.0;
+        //If search keywords is not empty
+        if (searchKeywords != "") {
+            //First hide all
+            for (var i = 0; i < allSummarySubItems.length; i++)
+                allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 0.2;");
+            for (var i = 0; i < allSummaryItems.length; i++)
+                allSummaryItems[i].parentElement.setAttribute("style", "opacity: 0.2;");
 
-        //Add the current percent to backgroud image
-        generatedGradientForItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
-    }
-    generatedGradientForItems += " transparent 100%)";
-    summarySearchMarkersForItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForItems + "; background-image: -webkit-" + generatedGradientForItems + ";");
-    //Publish the search results below search box
-    if (searchResults > 0) {
-        summarySearchResult.style.opacity = "0.7";
-        summarySearchResult.innerHTML = "Found " + searchResults + " results";
-    }
-    if (searchResults == 0)
-        summarySearchResult.style.opacity = "0";
+            //Now, show only that matches
+            for (var i = 0; i < allSummarySubItems.length; i++)
+                if (allSummarySubItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
+                    allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 1.0;");
+                    searchResultsForSubItemsPositions.push(allSummarySubItems[i].offsetTop / summaryTotalHeight * 100.0);
+                    searchResults += 1;
+                }
+            for (var i = 0; i < allSummaryItems.length; i++)
+                if (allSummaryItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
+                    allSummaryItems[i].parentElement.setAttribute("style", "opacity: 1.0;");
+                    searchResultsForItemsPositions.push(allSummaryItems[i].parentElement.offsetTop / summaryTotalHeight * 100.0);
+                    searchResults += 1;
+                }
+        }
+        //If search keywords is empty
+        if (searchKeywords == "") {
+            for (var i = 0; i < allSummarySubItems.length; i++)
+                allSummarySubItems[i].setAttribute("style", "list-style-type: circle;");
+            for (var i = 0; i < allSummaryItems.length; i++)
+                allSummaryItems[i].parentElement.removeAttribute("style");
+        }
+
+        //Publish the search results in the search markers
+        //----- Publish on Search Markers for Summary SubItems -------
+        var generatedGradientForSubItems = "linear-gradient(top, transparent 0%,";
+        for (var i = 0; i < searchResultsForSubItemsPositions.length; i++) {
+            //Get the current percent fixed
+            var currentPercent = Math.round(searchResultsForSubItemsPositions[i]);
+            if (currentPercent > 100.0)
+                currentPercent = 100.0;
+            if (currentPercent < 0.0)
+                currentPercent = 0.0;
+
+            //Add the current percent to backgroud image
+            generatedGradientForSubItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
+        }
+        generatedGradientForSubItems += " transparent 100%)";
+        summarySearchMarkersForSubItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForSubItems + "; background-image: -webkit-" + generatedGradientForSubItems + ";");
+        //----- Publish on Search Markers for Summary Items -------
+        var generatedGradientForItems = "linear-gradient(top, transparent 0%,";
+        for (var i = 0; i < searchResultsForItemsPositions.length; i++) {
+            //Get the current percent fixed
+            var currentPercent = Math.round(searchResultsForItemsPositions[i]);
+            if (currentPercent > 100.0)
+                currentPercent = 100.0;
+            if (currentPercent < 0.0)
+                currentPercent = 0.0;
+
+            //Add the current percent to backgroud image
+            generatedGradientForItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
+        }
+        generatedGradientForItems += " transparent 100%)";
+        summarySearchMarkersForItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForItems + "; background-image: -webkit-" + generatedGradientForItems + ";");
+        //Publish the search results below search box
+        if (searchResults > 0) {
+            summarySearchResult.style.opacity = "0.7";
+            summarySearchResult.innerHTML = "Found " + searchResults + " results";
+        }
+        if (searchResults == 0)
+            summarySearchResult.style.opacity = "0";
+
+        //Reset the pendent serach job
+        pendentSearchJob = undefined;
+    }, delayForSearchMillis);
+
+    //Update the UI, while wait for search task execution
+    summarySearchResult.innerHTML = (searchKeywords != "") ? "Searching" : "";
+    summarySearchResult.style.opacity = "0.7";
 }
 function FinishSearchJob() {
     //Change the buttons visibility
@@ -216,7 +240,7 @@ function FinishSearchJob() {
     }, 300);
 
     //Do the last call to search job, to reset the summary
-    DoTheSearchJob("");
+    DoTheSearchJob("", false);
     document.getElementById("summarySearchMarkersForSubItems").setAttribute("style", "display: none;");
     document.getElementById("summarySearchMarkersForItems").setAttribute("style", "display: none;");
 }
