@@ -21,6 +21,7 @@ window.onload = function () {
     ScrollSummaryWithWindow();
     RunPostProcessOfAllToolsTags();
     AsyncCheckForEachSummaryItemVisibility();
+    CreateTheSearchMarkers();
     document.title = document.title + " Doc";
     Rainbow.color();
     OnScrollSummary(document.getElementById("summary"));
@@ -60,6 +61,18 @@ function FillReadProgressBar() {
 }
 
 //Function to make summary search bar works
+function CreateTheSearchMarkers() {
+    //Create the search markers
+    var searchMarkersForSubItems = document.createElement("div");
+    searchMarkersForSubItems.setAttribute("id", "summarySearchMarkersForSubItems");
+    searchMarkersForSubItems.setAttribute("style", "display: none;");
+    document.getElementById("divider").appendChild(searchMarkersForSubItems);
+
+    var searchMarkersForItems = document.createElement("div");
+    searchMarkersForItems.setAttribute("id", "summarySearchMarkersForItems");
+    searchMarkersForItems.setAttribute("style", "display: none;");
+    document.getElementById("divider").appendChild(searchMarkersForItems);
+}
 function StartSearchJob() {
     //Change the buttons visibility
     document.getElementById("summarySearchStart").style.display = "none";
@@ -91,6 +104,8 @@ function StartSearchJob() {
     alreadyAddedListenerToSearchBar = true;
 
     //Do the first call to search job
+    document.getElementById("summarySearchMarkersForSubItems").setAttribute("style", "display: block;");
+    document.getElementById("summarySearchMarkersForItems").setAttribute("style", "display: block;");
     DoTheSearchJob(document.getElementById("summarySearchBar").getElementsByTagName("input")[0].value.toLocaleLowerCase());
 }
 function DoTheSearchJob(searchKeywords) {
@@ -101,6 +116,11 @@ function DoTheSearchJob(searchKeywords) {
     //Prepare the search results
     var searchResults = 0;
     var summarySearchResult = document.getElementById("summarySearchResult");
+    var searchResultsForSubItemsPositions = [];
+    var searchResultsForItemsPositions = [];
+    var summarySearchMarkersForSubItems = document.getElementById("summarySearchMarkersForSubItems");
+    var summarySearchMarkersForItems = document.getElementById("summarySearchMarkersForItems");
+    var summaryTotalHeight = document.getElementById("summary").getElementsByTagName("ul")[0].offsetHeight;
 
     //If search keywords is not empty
     if (searchKeywords != "") {
@@ -114,11 +134,13 @@ function DoTheSearchJob(searchKeywords) {
         for (var i = 0; i < allSummarySubItems.length; i++)
             if (allSummarySubItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
                 allSummarySubItems[i].setAttribute("style", "list-style-type: circle; opacity: 1.0;");
+                searchResultsForSubItemsPositions.push(allSummarySubItems[i].offsetTop / summaryTotalHeight * 100.0);
                 searchResults += 1;
             }
         for (var i = 0; i < allSummaryItems.length; i++)
             if (allSummaryItems[i].innerHTML.toLowerCase().includes(searchKeywords) == true) {
                 allSummaryItems[i].parentElement.setAttribute("style", "opacity: 1.0;");
+                searchResultsForItemsPositions.push(allSummaryItems[i].parentElement.offsetTop / summaryTotalHeight * 100.0);
                 searchResults += 1;
             }
     }
@@ -130,7 +152,38 @@ function DoTheSearchJob(searchKeywords) {
             allSummaryItems[i].parentElement.removeAttribute("style");
     }
 
-    //Publish the search results
+    //Publish the search results in the search markers
+    //----- Publish on Search Markers for Summary SubItems -------
+    var generatedGradientForSubItems = "linear-gradient(top, transparent 0%,";
+    for (var i = 0; i < searchResultsForSubItemsPositions.length; i++) {
+        //Get the current percent fixed
+        var currentPercent = Math.round(searchResultsForSubItemsPositions[i]);
+        if (currentPercent > 100.0)
+            currentPercent = 100.0;
+        if (currentPercent < 0.0)
+            currentPercent = 0.0;
+
+        //Add the current percent to backgroud image
+        generatedGradientForSubItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
+    }
+    generatedGradientForSubItems += " transparent 100%)";
+    summarySearchMarkersForSubItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForSubItems + "; background-image: -webkit-" + generatedGradientForSubItems + ";");
+    //----- Publish on Search Markers for Summary Items -------
+    var generatedGradientForItems = "linear-gradient(top, transparent 0%,";
+    for (var i = 0; i < searchResultsForItemsPositions.length; i++) {
+        //Get the current percent fixed
+        var currentPercent = Math.round(searchResultsForItemsPositions[i]);
+        if (currentPercent > 100.0)
+            currentPercent = 100.0;
+        if (currentPercent < 0.0)
+            currentPercent = 0.0;
+
+        //Add the current percent to backgroud image
+        generatedGradientForItems += " transparent " + (currentPercent - 0.5) + "%, red " + (currentPercent - 0.5) + "%, red " + currentPercent + "%, transparent " + currentPercent + "%,";
+    }
+    generatedGradientForItems += " transparent 100%)";
+    summarySearchMarkersForItems.setAttribute("style", "position: absolute; top: 0px; right: 2px; width: 2px; height: 100%; opacity: 0.8; pointer-events: none; background-image: " + generatedGradientForItems + "; background-image: -webkit-" + generatedGradientForItems + ";");
+    //Publish the search results below search box
     if (searchResults > 0) {
         summarySearchResult.style.opacity = "0.7";
         summarySearchResult.innerHTML = "Found " + searchResults + " results";
@@ -164,6 +217,8 @@ function FinishSearchJob() {
 
     //Do the last call to search job, to reset the summary
     DoTheSearchJob("");
+    document.getElementById("summarySearchMarkersForSubItems").setAttribute("style", "display: none;");
+    document.getElementById("summarySearchMarkersForItems").setAttribute("style", "display: none;");
 }
 
 //Scroll vertically the summary div code
