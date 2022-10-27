@@ -676,6 +676,15 @@ function RunPostProcessOfAllToolsTags() {
         currentItem.innerHTML = "<div class=\"toolTagDetach\">" + content + "</div>";
     }
 
+    //icon
+    temporaryTags = document.getElementsByTagName("doc.icon");
+    for (var i = 0; i < temporaryTags.length; i++) {
+        var currentItem = temporaryTags[i];
+        if (isInsideCodeTag(currentItem) == true) //<-- Ignore this item, if is inside of CODE tag
+            continue;
+        currentItem.innerHTML = "<div class=\"toolTagIcon\"><img src=\"" + currentItem.getAttribute("src") + "\" /></div>";
+    }
+
     //image
     temporaryTags = document.getElementsByTagName("doc.image");
     for (var i = 0; i < temporaryTags.length; i++) {
